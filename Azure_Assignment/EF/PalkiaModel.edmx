@@ -1,0 +1,1286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PalkiaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BlogCategories">
+          <Key>
+            <PropertyRef Name="BlogCategoryID" />
+          </Key>
+          <Property Name="BlogCategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BlogCategoryName" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="BlogComments">
+          <Key>
+            <PropertyRef Name="BlogCommentID" />
+          </Key>
+          <Property Name="BlogCommentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FullName" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="30" />
+          <Property Name="Phone" Type="varchar" MaxLength="15" />
+          <Property Name="Comment" Type="text" />
+          <Property Name="CommentingDate" Type="datetime" />
+          <Property Name="BlogID" Type="int" />
+        </EntityType>
+        <EntityType Name="Blogs">
+          <Key>
+            <PropertyRef Name="BlogID" />
+          </Key>
+          <Property Name="BlogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BlogName" Type="varchar" MaxLength="50" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="Content" Type="text" />
+          <Property Name="BlogCategoryID" Type="int" />
+          <Property Name="WritingDate" Type="datetime" />
+          <Property Name="Thumbnail" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+          <Property Name="Picture" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Exportation">
+          <Key>
+            <PropertyRef Name="ExportationID" />
+          </Key>
+          <Property Name="ExportationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="ExportDate" Type="datetime" />
+          <Property Name="UnitPrice" Type="int" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="Feedbacks">
+          <Key>
+            <PropertyRef Name="FeedbackID" />
+          </Key>
+          <Property Name="FeedbackID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FeedbackName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="30" />
+          <Property Name="Content" Type="text" />
+          <Property Name="FeedBackDate" Type="datetime" />
+          <Property Name="ProductID" Type="int" />
+        </EntityType>
+        <EntityType Name="Importation">
+          <Key>
+            <PropertyRef Name="ImportationID" />
+          </Key>
+          <Property Name="ImportationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="ImportDate" Type="datetime" />
+          <Property Name="UnitPrice" Type="int" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="OrderDetails">
+          <Key>
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="UnitPrice" Type="int" />
+          <Property Name="Quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="PaymentID" Type="int" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="ShippedDate" Type="datetime" />
+          <Property Name="ShippedAddress" Type="varchar" MaxLength="100" />
+          <Property Name="Note" Type="varchar" MaxLength="100" />
+          <Property Name="Status" Type="int" />
+        </EntityType>
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PaymentName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ProductImage">
+          <Key>
+            <PropertyRef Name="ImgID" />
+          </Key>
+          <Property Name="ImgID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImgFileName" Type="varchar" MaxLength="500" />
+          <Property Name="ProductID" Type="int" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="50" />
+          <Property Name="UnitPrice" Type="int" />
+          <Property Name="OldUnitPrice" Type="int" />
+          <Property Name="ShortDescription" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Thumbnail" Type="nvarchar" MaxLength="500" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Specification" Type="text" />
+          <Property Name="UnitsInStock" Type="int" />
+          <Property Name="UnitsOnOrder" Type="int" />
+          <Property Name="SupplierID" Type="int" />
+          <Property Name="CategoryID" Type="int" />
+          <Property Name="SaleID" Type="int" />
+          <Property Name="Discontinued" Type="bit" />
+        </EntityType>
+        <EntityType Name="ReplyBlogComments">
+          <Key>
+            <PropertyRef Name="ReplyID" />
+          </Key>
+          <Property Name="ReplyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReplyName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="30" />
+          <Property Name="Content" Type="text" />
+          <Property Name="ReplyDate" Type="datetime" />
+          <Property Name="BlogCommentID" Type="int" />
+        </EntityType>
+        <EntityType Name="ReplyFeedbacks">
+          <Key>
+            <PropertyRef Name="ReplyID" />
+          </Key>
+          <Property Name="ReplyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReplyName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="30" />
+          <Property Name="Content" Type="text" />
+          <Property Name="ReplyDate" Type="datetime" />
+          <Property Name="FeedbackID" Type="int" />
+        </EntityType>
+        <EntityType Name="Sale">
+          <Key>
+            <PropertyRef Name="SaleID" />
+          </Key>
+          <Property Name="SaleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SaleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Content" Type="nvarchar" MaxLength="250" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="Picture" Type="nvarchar" MaxLength="500" />
+          <Property Name="Code" Type="nvarchar" MaxLength="20" />
+          <Property Name="Discount" Type="decimal" Precision="12" Scale="2" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="SupplierID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="50" />
+          <Property Name="ContactName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" />
+          <Property Name="Phone" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirtName" Type="nvarchar" MaxLength="20" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="20" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" />
+          <Property Name="Gender" Type="bit" />
+          <Property Name="Birthday" Type="date" />
+          <Property Name="Phone" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar" MaxLength="30" />
+          <Property Name="Address" Type="varchar" MaxLength="100" />
+          <Property Name="Picture" Type="varchar" MaxLength="500" />
+          <Property Name="Role" Type="int" />
+          <Property Name="Status" Type="bit" />
+        </EntityType>
+        <Association Name="FK__BlogComme__BlogI__534D60F1">
+          <End Role="Blogs" Type="Self.Blogs" Multiplicity="0..1" />
+          <End Role="BlogComments" Type="Self.BlogComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Blogs">
+              <PropertyRef Name="BlogID" />
+            </Principal>
+            <Dependent Role="BlogComments">
+              <PropertyRef Name="BlogID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Blogs__BlogCateg__5070F446">
+          <End Role="BlogCategories" Type="Self.BlogCategories" Multiplicity="0..1" />
+          <End Role="Blogs" Type="Self.Blogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BlogCategories">
+              <PropertyRef Name="BlogCategoryID" />
+            </Principal>
+            <Dependent Role="Blogs">
+              <PropertyRef Name="BlogCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Blogs__Username__4F7CD00D">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Blogs" Type="Self.Blogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Blogs">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Exportati__Produ__440B1D61">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="Exportation" Type="Self.Exportation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Exportation">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Exportati__Usern__44FF419A">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Exportation" Type="Self.Exportation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Exportation">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Feedbacks__Produ__47DBAE45">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="Feedbacks" Type="Self.Feedbacks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Feedbacks">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Importati__Produ__403A8C7D">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="Importation" Type="Self.Importation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Importation">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Importati__Usern__412EB0B6">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Importation" Type="Self.Importation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Importation">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderDeta__Order__398D8EEE">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderDeta__Produ__3A81B327">
+          <End Role="Products" Type="Self.Products" Multiplicity="1" />
+          <End Role="OrderDetails" Type="Self.OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__PaymentI__36B12243">
+          <End Role="Payments" Type="Self.Payments" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payments">
+              <PropertyRef Name="PaymentID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="PaymentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Username__35BCFE0A">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductIm__Produ__3D5E1FD2">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="ProductImage" Type="Self.ProductImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductImage">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products__Catego__2B3F6F97">
+          <End Role="Categories" Type="Self.Categories" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products__SaleID__2C3393D0">
+          <End Role="Sale" Type="Self.Sale" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sale">
+              <PropertyRef Name="SaleID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="SaleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products__Suppli__2A4B4B5E">
+          <End Role="Suppliers" Type="Self.Suppliers" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReplyBlog__BlogC__5629CD9C">
+          <End Role="BlogComments" Type="Self.BlogComments" Multiplicity="0..1" />
+          <End Role="ReplyBlogComments" Type="Self.ReplyBlogComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BlogComments">
+              <PropertyRef Name="BlogCommentID" />
+            </Principal>
+            <Dependent Role="ReplyBlogComments">
+              <PropertyRef Name="BlogCommentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReplyFeed__Feedb__4AB81AF0">
+          <End Role="Feedbacks" Type="Self.Feedbacks" Multiplicity="0..1" />
+          <End Role="ReplyFeedbacks" Type="Self.ReplyFeedbacks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Feedbacks">
+              <PropertyRef Name="FeedbackID" />
+            </Principal>
+            <Dependent Role="ReplyFeedbacks">
+              <PropertyRef Name="FeedbackID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PalkiaDBModelStoreContainer">
+          <EntitySet Name="BlogCategories" EntityType="Self.BlogCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BlogComments" EntityType="Self.BlogComments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Blogs" EntityType="Self.Blogs" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categories" EntityType="Self.Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Exportation" EntityType="Self.Exportation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Feedbacks" EntityType="Self.Feedbacks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Importation" EntityType="Self.Importation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDetails" EntityType="Self.OrderDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payments" EntityType="Self.Payments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductImage" EntityType="Self.ProductImage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReplyBlogComments" EntityType="Self.ReplyBlogComments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReplyFeedbacks" EntityType="Self.ReplyFeedbacks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sale" EntityType="Self.Sale" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__BlogComme__BlogI__534D60F1" Association="Self.FK__BlogComme__BlogI__534D60F1">
+            <End Role="Blogs" EntitySet="Blogs" />
+            <End Role="BlogComments" EntitySet="BlogComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Blogs__BlogCateg__5070F446" Association="Self.FK__Blogs__BlogCateg__5070F446">
+            <End Role="BlogCategories" EntitySet="BlogCategories" />
+            <End Role="Blogs" EntitySet="Blogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Blogs__Username__4F7CD00D" Association="Self.FK__Blogs__Username__4F7CD00D">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Blogs" EntitySet="Blogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Exportati__Produ__440B1D61" Association="Self.FK__Exportati__Produ__440B1D61">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Exportation" EntitySet="Exportation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Exportati__Usern__44FF419A" Association="Self.FK__Exportati__Usern__44FF419A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Exportation" EntitySet="Exportation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Feedbacks__Produ__47DBAE45" Association="Self.FK__Feedbacks__Produ__47DBAE45">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Feedbacks" EntitySet="Feedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Importati__Produ__403A8C7D" Association="Self.FK__Importati__Produ__403A8C7D">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Importation" EntitySet="Importation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Importati__Usern__412EB0B6" Association="Self.FK__Importati__Usern__412EB0B6">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Importation" EntitySet="Importation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__Order__398D8EEE" Association="Self.FK__OrderDeta__Order__398D8EEE">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__Produ__3A81B327" Association="Self.FK__OrderDeta__Produ__3A81B327">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__PaymentI__36B12243" Association="Self.FK__Orders__PaymentI__36B12243">
+            <End Role="Payments" EntitySet="Payments" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Username__35BCFE0A" Association="Self.FK__Orders__Username__35BCFE0A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductIm__Produ__3D5E1FD2" Association="Self.FK__ProductIm__Produ__3D5E1FD2">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductImage" EntitySet="ProductImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products__Catego__2B3F6F97" Association="Self.FK__Products__Catego__2B3F6F97">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products__SaleID__2C3393D0" Association="Self.FK__Products__SaleID__2C3393D0">
+            <End Role="Sale" EntitySet="Sale" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products__Suppli__2A4B4B5E" Association="Self.FK__Products__Suppli__2A4B4B5E">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReplyBlog__BlogC__5629CD9C" Association="Self.FK__ReplyBlog__BlogC__5629CD9C">
+            <End Role="BlogComments" EntitySet="BlogComments" />
+            <End Role="ReplyBlogComments" EntitySet="ReplyBlogComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReplyFeed__Feedb__4AB81AF0" Association="Self.FK__ReplyFeed__Feedb__4AB81AF0">
+            <End Role="Feedbacks" EntitySet="Feedbacks" />
+            <End Role="ReplyFeedbacks" EntitySet="ReplyFeedbacks" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PalkiaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DataPalkia" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BlogCategories" EntityType="PalkiaDBModel.BlogCategories" />
+          <EntitySet Name="BlogComments" EntityType="PalkiaDBModel.BlogComments" />
+          <EntitySet Name="Blogs" EntityType="PalkiaDBModel.Blogs" />
+          <EntitySet Name="Categories" EntityType="PalkiaDBModel.Categories" />
+          <EntitySet Name="Exportation" EntityType="PalkiaDBModel.Exportation" />
+          <EntitySet Name="Feedbacks" EntityType="PalkiaDBModel.Feedbacks" />
+          <EntitySet Name="Importation" EntityType="PalkiaDBModel.Importation" />
+          <EntitySet Name="OrderDetails" EntityType="PalkiaDBModel.OrderDetails" />
+          <EntitySet Name="Orders" EntityType="PalkiaDBModel.Orders" />
+          <EntitySet Name="Payments" EntityType="PalkiaDBModel.Payments" />
+          <EntitySet Name="ProductImage" EntityType="PalkiaDBModel.ProductImage" />
+          <EntitySet Name="Products" EntityType="PalkiaDBModel.Products" />
+          <EntitySet Name="ReplyBlogComments" EntityType="PalkiaDBModel.ReplyBlogComments" />
+          <EntitySet Name="ReplyFeedbacks" EntityType="PalkiaDBModel.ReplyFeedbacks" />
+          <EntitySet Name="Sale" EntityType="PalkiaDBModel.Sale" />
+          <EntitySet Name="Suppliers" EntityType="PalkiaDBModel.Suppliers" />
+          <EntitySet Name="Users" EntityType="PalkiaDBModel.Users" />
+          <AssociationSet Name="FK__Blogs__BlogCateg__5070F446" Association="PalkiaDBModel.FK__Blogs__BlogCateg__5070F446">
+            <End Role="BlogCategories" EntitySet="BlogCategories" />
+            <End Role="Blogs" EntitySet="Blogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__BlogComme__BlogI__534D60F1" Association="PalkiaDBModel.FK__BlogComme__BlogI__534D60F1">
+            <End Role="Blogs" EntitySet="Blogs" />
+            <End Role="BlogComments" EntitySet="BlogComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReplyBlog__BlogC__5629CD9C" Association="PalkiaDBModel.FK__ReplyBlog__BlogC__5629CD9C">
+            <End Role="BlogComments" EntitySet="BlogComments" />
+            <End Role="ReplyBlogComments" EntitySet="ReplyBlogComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Blogs__Username__4F7CD00D" Association="PalkiaDBModel.FK__Blogs__Username__4F7CD00D">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Blogs" EntitySet="Blogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products__Catego__2B3F6F97" Association="PalkiaDBModel.FK__Products__Catego__2B3F6F97">
+            <End Role="Categories" EntitySet="Categories" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Exportati__Produ__440B1D61" Association="PalkiaDBModel.FK__Exportati__Produ__440B1D61">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Exportation" EntitySet="Exportation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Exportati__Usern__44FF419A" Association="PalkiaDBModel.FK__Exportati__Usern__44FF419A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Exportation" EntitySet="Exportation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Feedbacks__Produ__47DBAE45" Association="PalkiaDBModel.FK__Feedbacks__Produ__47DBAE45">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Feedbacks" EntitySet="Feedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ReplyFeed__Feedb__4AB81AF0" Association="PalkiaDBModel.FK__ReplyFeed__Feedb__4AB81AF0">
+            <End Role="Feedbacks" EntitySet="Feedbacks" />
+            <End Role="ReplyFeedbacks" EntitySet="ReplyFeedbacks" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Importati__Produ__403A8C7D" Association="PalkiaDBModel.FK__Importati__Produ__403A8C7D">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="Importation" EntitySet="Importation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Importati__Usern__412EB0B6" Association="PalkiaDBModel.FK__Importati__Usern__412EB0B6">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Importation" EntitySet="Importation" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__Order__398D8EEE" Association="PalkiaDBModel.FK__OrderDeta__Order__398D8EEE">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderDeta__Produ__3A81B327" Association="PalkiaDBModel.FK__OrderDeta__Produ__3A81B327">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="OrderDetails" EntitySet="OrderDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__PaymentI__36B12243" Association="PalkiaDBModel.FK__Orders__PaymentI__36B12243">
+            <End Role="Payments" EntitySet="Payments" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Username__35BCFE0A" Association="PalkiaDBModel.FK__Orders__Username__35BCFE0A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductIm__Produ__3D5E1FD2" Association="PalkiaDBModel.FK__ProductIm__Produ__3D5E1FD2">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductImage" EntitySet="ProductImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products__SaleID__2C3393D0" Association="PalkiaDBModel.FK__Products__SaleID__2C3393D0">
+            <End Role="Sale" EntitySet="Sale" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Products__Suppli__2A4B4B5E" Association="PalkiaDBModel.FK__Products__Suppli__2A4B4B5E">
+            <End Role="Suppliers" EntitySet="Suppliers" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="BlogCategories">
+          <Key>
+            <PropertyRef Name="BlogCategoryID" />
+          </Key>
+          <Property Name="BlogCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BlogCategoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Blogs" Relationship="PalkiaDBModel.FK__Blogs__BlogCateg__5070F446" FromRole="BlogCategories" ToRole="Blogs" />
+        </EntityType>
+        <EntityType Name="BlogComments">
+          <Key>
+            <PropertyRef Name="BlogCommentID" />
+          </Key>
+          <Property Name="BlogCommentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CommentingDate" Type="DateTime" Precision="3" />
+          <Property Name="BlogID" Type="Int32" />
+          <NavigationProperty Name="Blogs" Relationship="PalkiaDBModel.FK__BlogComme__BlogI__534D60F1" FromRole="BlogComments" ToRole="Blogs" />
+          <NavigationProperty Name="ReplyBlogComments" Relationship="PalkiaDBModel.FK__ReplyBlog__BlogC__5629CD9C" FromRole="BlogComments" ToRole="ReplyBlogComments" />
+        </EntityType>
+        <EntityType Name="Blogs">
+          <Key>
+            <PropertyRef Name="BlogID" />
+          </Key>
+          <Property Name="BlogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BlogName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="BlogCategoryID" Type="Int32" />
+          <Property Name="WritingDate" Type="DateTime" Precision="3" />
+          <Property Name="Thumbnail" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BlogCategories" Relationship="PalkiaDBModel.FK__Blogs__BlogCateg__5070F446" FromRole="Blogs" ToRole="BlogCategories" />
+          <NavigationProperty Name="BlogComments" Relationship="PalkiaDBModel.FK__BlogComme__BlogI__534D60F1" FromRole="Blogs" ToRole="BlogComments" />
+          <NavigationProperty Name="Users" Relationship="PalkiaDBModel.FK__Blogs__Username__4F7CD00D" FromRole="Blogs" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Categories">
+          <Key>
+            <PropertyRef Name="CategoryID" />
+          </Key>
+          <Property Name="CategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Picture" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Products" Relationship="PalkiaDBModel.FK__Products__Catego__2B3F6F97" FromRole="Categories" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Exportation">
+          <Key>
+            <PropertyRef Name="ExportationID" />
+          </Key>
+          <Property Name="ExportationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ExportDate" Type="DateTime" Precision="3" />
+          <Property Name="UnitPrice" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="Products" Relationship="PalkiaDBModel.FK__Exportati__Produ__440B1D61" FromRole="Exportation" ToRole="Products" />
+          <NavigationProperty Name="Users" Relationship="PalkiaDBModel.FK__Exportati__Usern__44FF419A" FromRole="Exportation" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Feedbacks">
+          <Key>
+            <PropertyRef Name="FeedbackID" />
+          </Key>
+          <Property Name="FeedbackID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FeedbackName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FeedBackDate" Type="DateTime" Precision="3" />
+          <Property Name="ProductID" Type="Int32" />
+          <NavigationProperty Name="Products" Relationship="PalkiaDBModel.FK__Feedbacks__Produ__47DBAE45" FromRole="Feedbacks" ToRole="Products" />
+          <NavigationProperty Name="ReplyFeedbacks" Relationship="PalkiaDBModel.FK__ReplyFeed__Feedb__4AB81AF0" FromRole="Feedbacks" ToRole="ReplyFeedbacks" />
+        </EntityType>
+        <EntityType Name="Importation">
+          <Key>
+            <PropertyRef Name="ImportationID" />
+          </Key>
+          <Property Name="ImportationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ImportDate" Type="DateTime" Precision="3" />
+          <Property Name="UnitPrice" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="Products" Relationship="PalkiaDBModel.FK__Importati__Produ__403A8C7D" FromRole="Importation" ToRole="Products" />
+          <NavigationProperty Name="Users" Relationship="PalkiaDBModel.FK__Importati__Usern__412EB0B6" FromRole="Importation" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="OrderDetails">
+          <Key>
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="UnitPrice" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" />
+          <NavigationProperty Name="Orders" Relationship="PalkiaDBModel.FK__OrderDeta__Order__398D8EEE" FromRole="OrderDetails" ToRole="Orders" />
+          <NavigationProperty Name="Products" Relationship="PalkiaDBModel.FK__OrderDeta__Produ__3A81B327" FromRole="OrderDetails" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PaymentID" Type="Int32" />
+          <Property Name="CreationDate" Type="DateTime" Precision="3" />
+          <Property Name="ShippedDate" Type="DateTime" Precision="3" />
+          <Property Name="ShippedAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Note" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="Int32" />
+          <NavigationProperty Name="OrderDetails" Relationship="PalkiaDBModel.FK__OrderDeta__Order__398D8EEE" FromRole="Orders" ToRole="OrderDetails" />
+          <NavigationProperty Name="Payments" Relationship="PalkiaDBModel.FK__Orders__PaymentI__36B12243" FromRole="Orders" ToRole="Payments" />
+          <NavigationProperty Name="Users" Relationship="PalkiaDBModel.FK__Orders__Username__35BCFE0A" FromRole="Orders" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Payments">
+          <Key>
+            <PropertyRef Name="PaymentID" />
+          </Key>
+          <Property Name="PaymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PaymentName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="PalkiaDBModel.FK__Orders__PaymentI__36B12243" FromRole="Payments" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="ProductImage">
+          <Key>
+            <PropertyRef Name="ImgID" />
+          </Key>
+          <Property Name="ImgID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImgFileName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ProductID" Type="Int32" />
+          <NavigationProperty Name="Products" Relationship="PalkiaDBModel.FK__ProductIm__Produ__3D5E1FD2" FromRole="ProductImage" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UnitPrice" Type="Int32" />
+          <Property Name="OldUnitPrice" Type="Int32" />
+          <Property Name="ShortDescription" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Thumbnail" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Specification" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UnitsInStock" Type="Int32" />
+          <Property Name="UnitsOnOrder" Type="Int32" />
+          <Property Name="SupplierID" Type="Int32" />
+          <Property Name="CategoryID" Type="Int32" />
+          <Property Name="SaleID" Type="Int32" />
+          <Property Name="Discontinued" Type="Boolean" />
+          <NavigationProperty Name="Categories" Relationship="PalkiaDBModel.FK__Products__Catego__2B3F6F97" FromRole="Products" ToRole="Categories" />
+          <NavigationProperty Name="Exportation" Relationship="PalkiaDBModel.FK__Exportati__Produ__440B1D61" FromRole="Products" ToRole="Exportation" />
+          <NavigationProperty Name="Feedbacks" Relationship="PalkiaDBModel.FK__Feedbacks__Produ__47DBAE45" FromRole="Products" ToRole="Feedbacks" />
+          <NavigationProperty Name="Importation" Relationship="PalkiaDBModel.FK__Importati__Produ__403A8C7D" FromRole="Products" ToRole="Importation" />
+          <NavigationProperty Name="OrderDetails" Relationship="PalkiaDBModel.FK__OrderDeta__Produ__3A81B327" FromRole="Products" ToRole="OrderDetails" />
+          <NavigationProperty Name="ProductImage" Relationship="PalkiaDBModel.FK__ProductIm__Produ__3D5E1FD2" FromRole="Products" ToRole="ProductImage" />
+          <NavigationProperty Name="Sale" Relationship="PalkiaDBModel.FK__Products__SaleID__2C3393D0" FromRole="Products" ToRole="Sale" />
+          <NavigationProperty Name="Suppliers" Relationship="PalkiaDBModel.FK__Products__Suppli__2A4B4B5E" FromRole="Products" ToRole="Suppliers" />
+        </EntityType>
+        <EntityType Name="ReplyBlogComments">
+          <Key>
+            <PropertyRef Name="ReplyID" />
+          </Key>
+          <Property Name="ReplyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReplyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ReplyDate" Type="DateTime" Precision="3" />
+          <Property Name="BlogCommentID" Type="Int32" />
+          <NavigationProperty Name="BlogComments" Relationship="PalkiaDBModel.FK__ReplyBlog__BlogC__5629CD9C" FromRole="ReplyBlogComments" ToRole="BlogComments" />
+        </EntityType>
+        <EntityType Name="ReplyFeedbacks">
+          <Key>
+            <PropertyRef Name="ReplyID" />
+          </Key>
+          <Property Name="ReplyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReplyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ReplyDate" Type="DateTime" Precision="3" />
+          <Property Name="FeedbackID" Type="Int32" />
+          <NavigationProperty Name="Feedbacks" Relationship="PalkiaDBModel.FK__ReplyFeed__Feedb__4AB81AF0" FromRole="ReplyFeedbacks" ToRole="Feedbacks" />
+        </EntityType>
+        <EntityType Name="Sale">
+          <Key>
+            <PropertyRef Name="SaleID" />
+          </Key>
+          <Property Name="SaleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SaleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Content" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="Picture" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Discount" Type="Decimal" Precision="12" Scale="2" />
+          <NavigationProperty Name="Products" Relationship="PalkiaDBModel.FK__Products__SaleID__2C3393D0" FromRole="Sale" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Suppliers">
+          <Key>
+            <PropertyRef Name="SupplierID" />
+          </Key>
+          <Property Name="SupplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ContactName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Products" Relationship="PalkiaDBModel.FK__Products__Suppli__2A4B4B5E" FromRole="Suppliers" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Username" />
+          </Key>
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirtName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="Boolean" />
+          <Property Name="Birthday" Type="DateTime" Precision="0" />
+          <Property Name="Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Picture" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Role" Type="Int32" />
+          <Property Name="Status" Type="Boolean" />
+          <NavigationProperty Name="Blogs" Relationship="PalkiaDBModel.FK__Blogs__Username__4F7CD00D" FromRole="Users" ToRole="Blogs" />
+          <NavigationProperty Name="Exportation" Relationship="PalkiaDBModel.FK__Exportati__Usern__44FF419A" FromRole="Users" ToRole="Exportation" />
+          <NavigationProperty Name="Importation" Relationship="PalkiaDBModel.FK__Importati__Usern__412EB0B6" FromRole="Users" ToRole="Importation" />
+          <NavigationProperty Name="Orders" Relationship="PalkiaDBModel.FK__Orders__Username__35BCFE0A" FromRole="Users" ToRole="Orders" />
+        </EntityType>
+        <Association Name="FK__Blogs__BlogCateg__5070F446">
+          <End Type="PalkiaDBModel.BlogCategories" Role="BlogCategories" Multiplicity="0..1" />
+          <End Type="PalkiaDBModel.Blogs" Role="Blogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BlogCategories">
+              <PropertyRef Name="BlogCategoryID" />
+            </Principal>
+            <Dependent Role="Blogs">
+              <PropertyRef Name="BlogCategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__BlogComme__BlogI__534D60F1">
+          <End Type="PalkiaDBModel.Blogs" Role="Blogs" Multiplicity="0..1" />
+          <End Type="PalkiaDBModel.BlogComments" Role="BlogComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Blogs">
+              <PropertyRef Name="BlogID" />
+            </Principal>
+            <Dependent Role="BlogComments">
+              <PropertyRef Name="BlogID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReplyBlog__BlogC__5629CD9C">
+          <End Type="PalkiaDBModel.BlogComments" Role="BlogComments" Multiplicity="0..1" />
+          <End Type="PalkiaDBModel.ReplyBlogComments" Role="ReplyBlogComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="BlogComments">
+              <PropertyRef Name="BlogCommentID" />
+            </Principal>
+            <Dependent Role="ReplyBlogComments">
+              <PropertyRef Name="BlogCommentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Blogs__Username__4F7CD00D">
+          <End Type="PalkiaDBModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="PalkiaDBModel.Blogs" Role="Blogs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Blogs">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products__Catego__2B3F6F97">
+          <End Type="PalkiaDBModel.Categories" Role="Categories" Multiplicity="0..1" />
+          <End Type="PalkiaDBModel.Products" Role="Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categories">
+              <PropertyRef Name="CategoryID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="CategoryID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Exportati__Produ__440B1D61">
+          <End Type="PalkiaDBModel.Products" Role="Products" Multiplicity="0..1" />
+          <End Type="PalkiaDBModel.Exportation" Role="Exportation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Exportation">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Exportati__Usern__44FF419A">
+          <End Type="PalkiaDBModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="PalkiaDBModel.Exportation" Role="Exportation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Exportation">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Feedbacks__Produ__47DBAE45">
+          <End Type="PalkiaDBModel.Products" Role="Products" Multiplicity="0..1" />
+          <End Type="PalkiaDBModel.Feedbacks" Role="Feedbacks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Feedbacks">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ReplyFeed__Feedb__4AB81AF0">
+          <End Type="PalkiaDBModel.Feedbacks" Role="Feedbacks" Multiplicity="0..1" />
+          <End Type="PalkiaDBModel.ReplyFeedbacks" Role="ReplyFeedbacks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Feedbacks">
+              <PropertyRef Name="FeedbackID" />
+            </Principal>
+            <Dependent Role="ReplyFeedbacks">
+              <PropertyRef Name="FeedbackID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Importati__Produ__403A8C7D">
+          <End Type="PalkiaDBModel.Products" Role="Products" Multiplicity="0..1" />
+          <End Type="PalkiaDBModel.Importation" Role="Importation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Importation">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Importati__Usern__412EB0B6">
+          <End Type="PalkiaDBModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="PalkiaDBModel.Importation" Role="Importation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Importation">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderDeta__Order__398D8EEE">
+          <End Type="PalkiaDBModel.Orders" Role="Orders" Multiplicity="1" />
+          <End Type="PalkiaDBModel.OrderDetails" Role="OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderDeta__Produ__3A81B327">
+          <End Type="PalkiaDBModel.Products" Role="Products" Multiplicity="1" />
+          <End Type="PalkiaDBModel.OrderDetails" Role="OrderDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="OrderDetails">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__PaymentI__36B12243">
+          <End Type="PalkiaDBModel.Payments" Role="Payments" Multiplicity="0..1" />
+          <End Type="PalkiaDBModel.Orders" Role="Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Payments">
+              <PropertyRef Name="PaymentID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="PaymentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Username__35BCFE0A">
+          <End Type="PalkiaDBModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="PalkiaDBModel.Orders" Role="Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Username" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Username" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductIm__Produ__3D5E1FD2">
+          <End Type="PalkiaDBModel.Products" Role="Products" Multiplicity="0..1" />
+          <End Type="PalkiaDBModel.ProductImage" Role="ProductImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ProductImage">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products__SaleID__2C3393D0">
+          <End Type="PalkiaDBModel.Sale" Role="Sale" Multiplicity="0..1" />
+          <End Type="PalkiaDBModel.Products" Role="Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sale">
+              <PropertyRef Name="SaleID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="SaleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Products__Suppli__2A4B4B5E">
+          <End Type="PalkiaDBModel.Suppliers" Role="Suppliers" Multiplicity="0..1" />
+          <End Type="PalkiaDBModel.Products" Role="Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Suppliers">
+              <PropertyRef Name="SupplierID" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="SupplierID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PalkiaDBModelStoreContainer" CdmEntityContainer="DataPalkia">
+          <EntitySetMapping Name="BlogCategories">
+            <EntityTypeMapping TypeName="PalkiaDBModel.BlogCategories">
+              <MappingFragment StoreEntitySet="BlogCategories">
+                <ScalarProperty Name="BlogCategoryName" ColumnName="BlogCategoryName" />
+                <ScalarProperty Name="BlogCategoryID" ColumnName="BlogCategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BlogComments">
+            <EntityTypeMapping TypeName="PalkiaDBModel.BlogComments">
+              <MappingFragment StoreEntitySet="BlogComments">
+                <ScalarProperty Name="BlogID" ColumnName="BlogID" />
+                <ScalarProperty Name="CommentingDate" ColumnName="CommentingDate" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="BlogCommentID" ColumnName="BlogCommentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Blogs">
+            <EntityTypeMapping TypeName="PalkiaDBModel.Blogs">
+              <MappingFragment StoreEntitySet="Blogs">
+                <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
+                <ScalarProperty Name="WritingDate" ColumnName="WritingDate" />
+                <ScalarProperty Name="BlogCategoryID" ColumnName="BlogCategoryID" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="BlogName" ColumnName="BlogName" />
+                <ScalarProperty Name="BlogID" ColumnName="BlogID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categories">
+            <EntityTypeMapping TypeName="PalkiaDBModel.Categories">
+              <MappingFragment StoreEntitySet="Categories">
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Exportation">
+            <EntityTypeMapping TypeName="PalkiaDBModel.Exportation">
+              <MappingFragment StoreEntitySet="Exportation">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="ExportDate" ColumnName="ExportDate" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ExportationID" ColumnName="ExportationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Feedbacks">
+            <EntityTypeMapping TypeName="PalkiaDBModel.Feedbacks">
+              <MappingFragment StoreEntitySet="Feedbacks">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="FeedBackDate" ColumnName="FeedBackDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="FeedbackName" ColumnName="FeedbackName" />
+                <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Importation">
+            <EntityTypeMapping TypeName="PalkiaDBModel.Importation">
+              <MappingFragment StoreEntitySet="Importation">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="ImportDate" ColumnName="ImportDate" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ImportationID" ColumnName="ImportationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetails">
+            <EntityTypeMapping TypeName="PalkiaDBModel.OrderDetails">
+              <MappingFragment StoreEntitySet="OrderDetails">
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="PalkiaDBModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="ShippedAddress" ColumnName="ShippedAddress" />
+                <ScalarProperty Name="ShippedDate" ColumnName="ShippedDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="PalkiaDBModel.Payments">
+              <MappingFragment StoreEntitySet="Payments">
+                <ScalarProperty Name="PaymentName" ColumnName="PaymentName" />
+                <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductImage">
+            <EntityTypeMapping TypeName="PalkiaDBModel.ProductImage">
+              <MappingFragment StoreEntitySet="ProductImage">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ImgFileName" ColumnName="ImgFileName" />
+                <ScalarProperty Name="ImgID" ColumnName="ImgID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="PalkiaDBModel.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="Discontinued" ColumnName="Discontinued" />
+                <ScalarProperty Name="SaleID" ColumnName="SaleID" />
+                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+                <ScalarProperty Name="UnitsOnOrder" ColumnName="UnitsOnOrder" />
+                <ScalarProperty Name="UnitsInStock" ColumnName="UnitsInStock" />
+                <ScalarProperty Name="Specification" ColumnName="Specification" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Thumbnail" ColumnName="Thumbnail" />
+                <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+                <ScalarProperty Name="OldUnitPrice" ColumnName="OldUnitPrice" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReplyBlogComments">
+            <EntityTypeMapping TypeName="PalkiaDBModel.ReplyBlogComments">
+              <MappingFragment StoreEntitySet="ReplyBlogComments">
+                <ScalarProperty Name="BlogCommentID" ColumnName="BlogCommentID" />
+                <ScalarProperty Name="ReplyDate" ColumnName="ReplyDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ReplyName" ColumnName="ReplyName" />
+                <ScalarProperty Name="ReplyID" ColumnName="ReplyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReplyFeedbacks">
+            <EntityTypeMapping TypeName="PalkiaDBModel.ReplyFeedbacks">
+              <MappingFragment StoreEntitySet="ReplyFeedbacks">
+                <ScalarProperty Name="FeedbackID" ColumnName="FeedbackID" />
+                <ScalarProperty Name="ReplyDate" ColumnName="ReplyDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ReplyName" ColumnName="ReplyName" />
+                <ScalarProperty Name="ReplyID" ColumnName="ReplyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sale">
+            <EntityTypeMapping TypeName="PalkiaDBModel.Sale">
+              <MappingFragment StoreEntitySet="Sale">
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="Content" ColumnName="Content" />
+                <ScalarProperty Name="SaleName" ColumnName="SaleName" />
+                <ScalarProperty Name="SaleID" ColumnName="SaleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Suppliers">
+            <EntityTypeMapping TypeName="PalkiaDBModel.Suppliers">
+              <MappingFragment StoreEntitySet="Suppliers">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="PalkiaDBModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirtName" ColumnName="FirtName" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

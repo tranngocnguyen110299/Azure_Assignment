@@ -1,0 +1,57 @@
+﻿@model Azure_Assignment.EF.BlogCategories
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Edit Blog Category</h1>
+                    <h5 style="color:red">@ViewBag.Error</h5>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="~/Admin/">Admin</a></li>
+                        <li class="breadcrumb-item"><a href="~/Admin/BlogCategories/">Blog Categories</a></li>
+                        <li class="breadcrumb-item active">Edit Blog Category</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="card card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">Edit Blog Category</h3>
+                        </div>
+                        @using (Html.BeginForm("Edit", "BlogCategories", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-horizontal">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.BlogCategoryID)
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        @Html.LabelFor(model => model.BlogCategoryName, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                                        <div class="col-sm-10">
+                                            @Html.EditorFor(model => model.BlogCategoryName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter name of product category" } })
+                                            @Html.ValidationMessageFor(model => model.BlogCategoryName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-success">Save</button>
+                                    <button type="reset" class="btn btn-default float-right" onclick="window.location = '../'">Cancel</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

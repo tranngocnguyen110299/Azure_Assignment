@@ -1,0 +1,264 @@
+﻿@model Azure_Assignment.Areas.Admin.Models.Profile
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var user = (Azure_Assignment.Areas.Admin.Models.UserLogin)Session["USER_SESSION"];
+}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Profile</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="~/home">Home</a></li>
+                        <li class="breadcrumb-item active">User Profile</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card card-primary card-outline">
+                        <div class="card-body box-profile">
+                            <div class="text-center">
+                                <img class="profile-user-img img-fluid img-circle"
+                                     src="@Url.Content(user.Picture)"
+                                     alt="User profile picture">
+                            </div>
+
+                            <h3 class="profile-username text-center">@user.FirtName @user.LastName</h3>
+
+                            <p class="text-muted text-center">@user.Username</p>
+
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>Gender</b> <a class="float-right">
+                                        @{
+                                            if (user.Gender == true)
+                                            {
+                                                <div>Male</div>
+                                            }
+                                            else
+                                            {
+                                                <div>Female</div>
+                                            }
+                                        }
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Birthday</b> <a class="float-right">@user.Birthday.Value.ToShortDateString()</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Phone</b> <a class="float-right">@user.Phone</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Email</b> <a class="float-right">@user.Email</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Address</b> <a class="float-right">@user.Address</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Role</b> <a class="float-right">
+                                        @{
+                                            if (user.Role == 0)
+                                            {
+                                                <div>Administrator</div>
+                                            }
+                                            else if (user.Role == 1)
+                                            {
+                                                <div>Employee</div>
+                                            }
+                                            else
+                                            {
+                                                <div>Customer</div>
+                                            }
+                                        }
+                                    </a>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-9">
+                    <div class="card">
+                        <div class="card-header p-2">
+                            <ul class="nav nav-pills">
+                                <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Settings</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#changepass" data-toggle="tab">Change Password</a></li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="settings">
+                                    @using (Html.BeginForm("Change", "Profile", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <div class="form-horizontal">
+                                            <div style="color:red">@TempData["Error"]</div>
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                            @Html.Hidden("Username", user.Username)
+                                            <div class="card-body">
+                                                <div class="form-group row">
+                                                    @Html.LabelFor(model => model.FirtName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.FirtName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter First Name" } })
+                                                        @Html.ValidationMessageFor(model => model.FirtName, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Last Name" } })
+                                                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="col-md-10" style="width: 100%;">
+                                                        @Html.RadioButtonFor(model => model.Gender, true, new { Checked = "checked" })
+                                                        <span>Male</span>&emsp;&emsp;
+                                                        @Html.RadioButtonFor(model => model.Gender, false)
+                                                        <span>Female</span>
+                                                        @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    @Html.LabelFor(model => model.Birthday, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control oso", @type = "date" } })
+                                                        @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Phone Number" } })
+                                                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Email" } })
+                                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    <div class="col-md-10">
+                                                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Address" } })
+                                                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    @Html.LabelFor(model => model.Picture, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                                                    <div class="col-sm-10">
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input" name="ImageFile" id="ImageFile">
+                                                            <label class="custom-file-label" for="customFile">Choose file</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <input type="hidden" name="imgOld_User" value="@Model.Picture" />
+                                                <div class="form-group row">
+                                                <div class="offset-sm-2 col-sm-10">
+                                                    <button type="submit" class="btn btn-success">Save</button>
+                                                </div>
+                                            </div>
+
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+
+                                <div class="tab-pane" id="changepass">
+                                    @using (Html.BeginForm("ChangePassword", "Profile", FormMethod.Post))
+                                    {
+                                        <div style="color:red">@ViewBag.Error</div>
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        @Html.Hidden("username", user.Username)
+                                        <form class="form-horizontal">
+                                            <div class="form-group row">
+                                                <label for="inputName" class="col-sm-2 col-form-label">Current Password</label>
+                                                <div class="col-sm-10">
+                                                    <input type="password" class="form-control" name="currentPass" placeholder="Current Password" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputEmail" class="col-sm-2 col-form-label">New Password</label>
+                                                <div class="col-sm-10">
+                                                    <input type="password" class="form-control" name="newPass" placeholder="New Password" required>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="inputName2" class="col-sm-2 col-form-label">Confirm Password</label>
+                                                <div class="col-sm-10">
+                                                    <input type="password" class="form-control" name="confirmPass" placeholder="Confirm Password" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class="offset-sm-2 col-sm-10">
+                                                    <button type="submit" class="btn btn-success">Save</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    }
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section ScriptConfig
+{
+    <link href="~/Scripts/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" />
+    <script src="~/Scripts/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Scripts/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+
+    @if (TempData["Password_Not_Match"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Confirmation password does not match!',
+            })
+        </script>
+    }
+
+    @if (TempData["Current_Pass_Fail"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Current password is incorrect!',
+            })
+        </script>
+    }
+}

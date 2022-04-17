@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Shop";
+    ViewBag.Breadcrumb = "Categories";
+    ViewBag.CategoriesActive = "active";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+@Html.Partial("Breadcrumb")
+
+
+<section class="shop spad">
+    <div class="container">
+        <div class="row">
+
+            @{ Html.RenderAction("Sidebar", "Shop"); }
+
+            @{ Html.RenderAction("MainView", "Shop"); }
+
+            
+        </div>
+    </div>
+</section>
+

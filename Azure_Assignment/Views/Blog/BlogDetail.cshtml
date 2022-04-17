@@ -1,0 +1,170 @@
+﻿@model PagedList.IPagedList<Azure_Assignment.ViewModels.BlogCommentViewModel>
+@using PagedList.Mvc;
+@{
+
+    TempData["BlogsActive"] = "active";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var blogCate = (List<Azure_Assignment.ViewModels.BlogCategoriesViewModel>)ViewBag.BlogCategoies;
+    var blog = (Azure_Assignment.EF.Blogs)ViewBag.Blog;
+    ViewBag.Title = blog.BlogName;
+
+}
+
+<div class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__links">
+                    <a href="~/home"><i class="fa fa-home"></i> Home</a>
+                    <a href="@Url.Action("Index", "Blog", new { })">Blog categoies</a>
+                        <span>Blog: @blog.BlogName</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="blog-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-8">
+                <div class="blog__item">
+                    <div class="blog__item__pic large__item set-bg" data-setbg="@Url.Content(blog.Thumbnail)"></div>
+                    <div class="blog__details__item__title">
+                        <h6><strong>@blog.BlogName</strong></h6>
+                        <ul>
+                            <li>by <span>@blog.Users.FirtName @blog.Users.LastName</span></li>
+                            <li>@blog.WritingDate</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="blog__details__desc">
+                    <p>
+                        @Html.Raw(blog.Content)
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4">
+                <div class="blog__sidebar">
+                    <div class="blog__sidebar__item">
+                        <div class="section-title">
+                            <h4>Blog categories</h4>
+                        </div>
+                        <ul>
+                            @{
+                                foreach (var item in blogCate)
+                                {
+                                    <li><a href="@Url.Action("BlogList", "Blog", new { id = item.BlogCategoryID })">@item.BlogCategoryName.ToUpper()</a></li>
+                                }
+
+                            }
+                        </ul>
+                    </div>
+                    <div class="blog__sidebar__item">
+                        <div class="section-title">
+                            <h4>Comment</h4>
+                        </div>
+                        @using (Html.BeginForm("AddComment", "Blog", FormMethod.Post))
+                        {
+                            <div class="form-group">
+                                @Html.Editor("txtFullName", new { htmlAttributes = new { @class = "form-control", @placeholder = "Your full name", @required = "required" } })
+                                <div style="color:red">@ViewBag.ErrorMessage</div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Editor("txtPhone", new { htmlAttributes = new { @class = "form-control", @placeholder = "Your phone", @required = "required" } })
+                            </div>
+
+                            <div class="form-group">
+                                @Html.Editor("txtEmail", new { htmlAttributes = new { @class = "form-control", @placeholder = "Your email", @required = "required" } })
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" name="txaComment" rows="8" placeholder="Enter your review or question." required></textarea>
+                                @Html.Hidden("BlogID", blog.BlogID)
+                                <br />
+                                <button type="submit" class="float-right site-btn">Send</button>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="blog__sidebar__item">
+                        <div class="section-title">
+                            <h4>Blog comments</h4>
+                        </div>
+                        @foreach (var item in Model)
+                        {
+                            string[] tu = item.FullName.Split(' ');
+                            int len = tu.Length;
+                            string word = tu[len - 1];
+                            string character = word.Substring(0, 1);
+                            <span class="avatar">@character</span>
+
+                            DateTime ngaymuon = Convert.ToDateTime(item.CommentingDate);
+                            DateTime ngaytra = Convert.ToDateTime(DateTime.Now);
+                            TimeSpan Time = ngaytra - ngaymuon;
+                            int TongSoNgay = Time.Days;
+                            int TongSoGio = Time.Hours;
+                            int TongSoPhut = Time.Minutes;
+                            if (TongSoNgay < 1)
+                            {
+                                if (TongSoGio < 1)
+                                {
+                                    <b>@item.FullName </b><small style="color: darkgrey">- @TongSoPhut minute(s) before</small>
+                                }
+                                else
+                                {
+                                    <b>@item.FullName </b><small style="color: darkgrey">- @TongSoGio hour(s) before</small>
+                                }
+                            }
+                            else
+                            {
+                                <b>@item.FullName </b><small style="color: darkgrey">- @TongSoNgay day(s) before</small>
+                            };
+                            <div>@item.Comment</div>
+                            <br />
+                        }
+                        <br />
+                        <div class="col-lg-12 text-center">
+                            <div class="pagination__option" style="display:inline-block; vertical-align:middle;">
+                                @Html.PagedListPager(Model, page => Url.Action("BlogDetail",
+                                new { id = blog.BlogID, page }))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section ClientScript{
+
+    @if (TempData["Notice_Submit_Success"] != null)
+    {
+        <script>
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Submitted successfully!',
+                showConfirmButton: false,
+                timer: 20000
+            });
+        </script>
+     }
+
+}
+<style>
+    .avatar {
+        float: left;
+        width: 25px;
+        height: 25px;
+        background: #ddd;
+        margin-right: 7px;
+        text-align: center;
+        color: #666;
+        text-transform: uppercase;
+        font-size: 12px;
+        line-height: 26px;
+        font-weight: 600;
+        text-shadow: 1px 1px 0 rgba(255,255,255,.2)
+    }
+</style>

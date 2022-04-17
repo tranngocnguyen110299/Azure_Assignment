@@ -1,0 +1,261 @@
+﻿    @model Azure_Assignment.EF.Feedbacks
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var feedback = (List<Azure_Assignment.ViewModels.FeedbackViewModel>)ViewBag.Feedback;
+    var product = (Azure_Assignment.EF.Products)ViewBag.Product;
+    ViewBag.Title = product.ProductName;
+}
+
+<div class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__links">
+                    <a href="~/home"><i class="fa fa-home"></i> Home</a>
+                    <a href="~/categories-@product.Categories.CategoryID">@product.Categories.CategoryName</a>
+                    <span>
+                        @product.ProductName
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="product-details spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="product__details__pic">
+                    <div class="product__details__pic__left product__thumb nice-scroll">
+                        @{
+                            foreach (var item in ViewBag.Image)
+                            {
+                                <a class="pt active" href="#product-@item.ImgID">
+                                    <img src="@Url.Content(item.ImgFileName)" alt="">
+                                </a>
+                            }
+                        }
+                    </div>
+
+                    <div class="product__details__slider__content">
+                        <div class="product__details__pic__slider owl-carousel">
+                            @{
+                                foreach (var item in ViewBag.Image)
+                                {
+                                    <img data-hash="product-@item.ImgID" class="product__big__img" src="@Url.Content(item.ImgFileName)" alt="">
+                                }
+                            }
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="product__details__text">
+                    <h3>@product.ProductName <span>Brand: from @product.Suppliers.CompanyName</span></h3>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <span>
+                            @{if (feedback.Count <= 1)
+                                {<span>( </span> @feedback.Count<span>review )</span>}
+                            else
+                            {<span>( </span>@feedback.Count<span>reviews )</span>}}
+                        </span>
+                    </div>
+                    <div class="product__details__price">
+                        <script>document.write((@product.UnitPrice).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));</script> VND<span><script>document.write((@product.OldUnitPrice).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));</script></span>
+                    </div>
+
+                    <p>
+                        @product.ShortDescription
+                    </p>
+                    <div class="product__details__button">
+                        <div class="quantity">
+                            <span>Quantity:</span>
+                            <div class="pro-qty">
+                                <input type="text" value="1" id="txtQty">
+                            </div>
+                        </div>
+                        <a style="cursor:pointer" class="cart-btn"><span class="icon_bag_alt"></span> Add to cart</a>
+                        <ul>
+                            <li><a href="#"><span class="icon_heart_alt"></span></a></li>
+                            <li><a href="#"><span class="icon_adjust-horiz"></span></a></li>
+                        </ul>
+                    </div>
+                    <div class="product__details__widget">
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="product__details__tab">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Description</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Specification</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">
+                                @{if (feedback.Count <= 1)
+                                    { <span>Review ( </span>@feedback.Count<span> )</span>}
+                                else
+                                {<span>Reviews (</span>@feedback.Count<span> )</span>}}
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                        <p>
+                            @Html.Raw(product.Description)
+                        </p>
+                    </div>
+                    <div class="tab-pane" id="tabs-2" role="tabpanel">
+                        <p>
+                            @Html.Raw(product.Specification)
+                        </p>
+                    </div>
+                    <div class="tab-pane" id="tabs-3" role="tabpanel">
+                        <p>
+                            @using (Html.BeginForm("AddComment", "ProductDetail", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="form-horizontal">
+                                    <div class="card-body">
+                                        <div class="form-group row">
+                                            <div class="col-sm-6">
+                                                <h4>Comments</h4><br />
+                                                @foreach (var item in feedback)
+                                                {
+                                                    string[] tu = item.FeedbackName.Split(' ');
+                                                    int len = tu.Length;
+                                                    string word = tu[len - 1];
+                                                    string character = word.Substring(0, 1);
+                                                    <span class="avatar">@character</span>
+
+                                                    DateTime ngaymuon = Convert.ToDateTime(item.FeedBackDate);
+                                                    DateTime ngaytra = Convert.ToDateTime(DateTime.Now);
+                                                    TimeSpan Time = ngaytra - ngaymuon;
+                                                    int TongSoNgay = Time.Days;
+                                                    int TongSoGio = Time.Hours;
+                                                    int TongSoPhut = Time.Minutes;
+                                                    if (TongSoNgay < 1)
+                                                    {
+                                                        if (TongSoGio < 1)
+                                                        {
+                                                            <b>@item.FeedbackName </b><small style="color: darkgrey">- @TongSoPhut minute(s) before</small>
+                                                        }
+                                                        else
+                                                        {
+                                                            <b>@item.FeedbackName </b><small style="color: darkgrey">- @TongSoGio hour(s) before</small>
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        <b>@item.FeedbackName </b><small style="color: darkgrey">- @TongSoNgay day(s) before</small>
+                                                    };
+
+                                                    <div>@item.Content</div>
+                                                    <br />
+                                                }
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <h4>Please rate the @product.ProductName</h4>
+                                                <br />
+                                                <div class="form-group">
+                                                    @Html.EditorFor(model => model.FeedbackName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Your full name" } })
+                                                    @Html.ValidationMessageFor(model => model.FeedbackName, "", new { @class = "text-danger" })
+                                                </div>
+                                                <div class="form-group">
+                                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Your email" } })
+                                                    @Html.ValidationMessage("Email", "", new { @class = "text-danger" })
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <textarea class="form-control" name="Content" rows="10" placeholder="Please enter a review for the product."></textarea>
+                                                    @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
+
+                                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                                    @Html.HiddenFor(model => model.FeedBackDate)
+
+                                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                                    @Html.Hidden("ProductID", product.ProductID)
+                                                    <br />
+                                                    <button type="submit" class="float-right site-btn">Send</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+<!-- Product Details Section End -->
+<style>
+    .product__details__pic__left .pt.active::after {
+        opacity: 0.0;
+    }
+
+    .content {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+    }
+
+    #square {
+        width: 28px;
+        height: 28px;
+        background: #f447ff;
+    }
+
+    .avatar {
+        float: left;
+        width: 25px;
+        height: 25px;
+        background: #ddd;
+        margin-right: 7px;
+        text-align: center;
+        color: #666;
+        text-transform: uppercase;
+        font-size: 12px;
+        line-height: 26px;
+        font-weight: 600;
+        text-shadow: 1px 1px 0 rgba(255,255,255,.2)
+    }
+</style>
+@section ClientScript
+{
+    <script src="~/Scripts/plugins/summernote/summernote-bs4.min.js"></script>
+    <link href="~/Scripts/plugins/summernote/summernote-bs4.min.css" rel="stylesheet" />
+    <script>
+        $(function () {
+            $('#txaFeedback').summernote()
+        })
+
+        $(document).ready(function () {
+            $(".cart-btn").click(function () {
+                var qty = $("#txtQty").val();
+                window.location = "/add-to-cart?productID=@product.ProductID&quantity=" + qty;
+            });
+        });
+
+    </script>
+
+}

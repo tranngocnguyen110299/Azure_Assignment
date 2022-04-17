@@ -1,0 +1,174 @@
+﻿@model IEnumerable<Azure_Assignment.EF.Orders>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Manage Orders</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="~/Admin/">Admin</a></li>
+                        <li class="breadcrumb-item active">Orders</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Data of Orders</h3>
+                    <p>
+                        <a style="cursor:pointer; color:white" id="print" class="btn btn-primary btn-sm float-right"><i class="fas fa-print"></i> Print</a>
+                    </p>
+                </div>
+                
+                <div class="card-body">
+                    <table id="tbl_Suppliers" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CreationDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ShippedDate)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ShippedAddress)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Note)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Status)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Payments.PaymentName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Users.FirtName)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CreationDate)
+                                    </td>
+                                    <td class="project-actions text-center">
+                                        @{
+                                            if (item.ShippedDate == null)
+                                            {
+                                                <a class="btn btn-warning btn-sm" href="@Url.Action("Ship", "Orders", new { id = item.OrderID })">
+                                                    <i class="fas fa-shipping-fast">
+                                                    </i>
+                                                    Ship
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                @Html.DisplayFor(modelItem => item.ShippedDate)
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ShippedAddress)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Note)
+                                    </td>
+                                    <td>
+                                        @if (item.Status == 0)
+                                        {
+                                            <span class="badge badge-primary">Processing</span>
+                                        }
+                                        else if (item.Status == 1)
+                                        {
+                                            <span class="badge badge-warning">Shipping</span>
+                                        }
+                                        else if (item.Status == 2)
+                                        {
+                                            <span class="badge badge-success">Delivered</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-danger">Canceled</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Payments.PaymentName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Users.FirtName)
+                                    </td>
+                                    <td class="project-actions text-right">
+                                        <a class="btn btn-primary btn-sm" href="~/Admin/Orders/Details/@item.OrderID">
+                                            <i class="fas fa-eye">
+                                            </i>
+                                            View
+                                        </a>
+                                        <a class="btn btn-info btn-sm" href="~/Admin/Orders/Edit/@item.OrderID">
+                                            <i class="fas fa-pencil-alt">
+                                            </i>
+                                            Edit
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+
+@section ScriptConfig
+{
+    <link href="~/Scripts/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/Scripts/plugins/datatables-responsive/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+    <script src="~/Scripts/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Scripts/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Scripts/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script>
+        $(function () {
+            $("#tbl_Suppliers").DataTable({
+                "destroy": true,
+                "responsive": true,
+                "autoWidth": false,
+                "aoColumns": [
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    { sWidth: '180px' }
+                ]
+            });
+        });
+
+        $('#print').click(function () {
+            window.print();
+            return false;
+        });
+
+    </script>
+}

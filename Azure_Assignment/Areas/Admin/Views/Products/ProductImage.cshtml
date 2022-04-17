@@ -1,0 +1,222 @@
+﻿@model IEnumerable<Azure_Assignment.EF.ProductImage>
+
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark" onclick="notice()">Manage Product Image</h1>
+
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="~/Admin/">Admin</a></li>
+                        <li class="breadcrumb-item"><a href="~/Admin/Products/">Products</a></li>
+                        <li class="breadcrumb-item active">Product Images</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">New Image</h3>
+                        </div>
+                        @using (Html.BeginForm("AddImage", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-horizontal">
+                                <div class="card-body">
+
+                                    <div class="form-group row">
+                                        @Html.Label("Product Name", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                                        <div class="col-sm-10">
+                                            <input type="text" name="txtProductName" id="txtProductName" value="@ViewBag.ProInfo[1]" class="form-control" readonly>
+                                        </div>
+                                        <input type="hidden" id="ProductID" name="ProductID" value="@ViewBag.ProInfo[0]">
+                                    </div>
+                                    <div class="form-group row">
+                                        @Html.Label("Image", htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                                        <div class="col-sm-10">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" name="ImageFile" id="ImageFile" required>
+                                                <label class="custom-file-label" for="customFile">Choose file</label>
+                                                <h5 style="color:red">@TempData["Error"]</h5>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-success">Add Image</button>
+                                    <button type="reset" class="btn btn-default float-right" onclick="window.location = '../'">Cancel</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-lightblue">
+                            <div class="card-header">
+                                <h3 class="card-title">Data of Product Images</h3>
+                            </div>
+                            <div class="card-body">
+                                <table id="tbl_ProImage" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                No.
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.ImgFileName)
+                                            </th>
+
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{ int i = 0; }
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @{ i++; }
+                                                    @i
+                                                </td>
+                                                <td>
+                                                    <img src="@Url.Content(item.ImgFileName)" style="max-height:200px; max-width:200px;" />
+                                                </td>
+
+                                                <td class="project-actions text-right">
+                                                    <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-xl-@item.ImgID" href="#">
+                                                        <i class="fas fa-search">
+                                                        </i>
+                                                        View
+                                                    </a>
+
+                                                    <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modal-danger-@item.ImgID" href="#">
+                                                        <i class="fas fa-trash">
+                                                        </i>
+                                                        Delete
+                                                    </a>
+
+
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+    .img-responsive {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+
+@{
+    foreach (var item in Model)
+    {
+        <div class="modal fade" id="modal-xl-@item.ImgID">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">@ViewBag.ProInfo[1]</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        @if (!item.ImgFileName.IsEmpty())
+                        {
+                            <img src="@Url.Content(item.ImgFileName)" class="img-responsive" style="max-height:100%; max-width:100%;" />
+                        }
+                        else
+                        {
+                            <p>No Image</p>
+                        }
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    foreach (var item in Model)
+    {
+        <div class="modal fade" id="modal-danger-@item.ImgID">
+            <div class="modal-dialog">
+                <div class="modal-content bg-danger">
+                    <div class="modal-header">
+                        <h4 class="modal-title">DANGER</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p style="text-align: center;">You won't be able to revert this!</p>
+                        @if (!item.ImgFileName.IsEmpty())
+                        {
+                            <img src="@Url.Content(item.ImgFileName)" class="img-responsive" style="max-height:50%; max-width:50%;" />
+                        }
+                        else
+                        {
+                            <p>No Image</p>
+                        }
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancel</button>
+                        @using (Html.BeginForm("DeleteImage", "Products", FormMethod.Post))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.Hidden("proImage", item.ImgID);
+                            @Html.Hidden("proID", item.ProductID);
+                            <button type="submit" class="btn btn-outline-light" id="btnConfirmDelete">Confirm</button>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+}
+
+@section ScriptConfig
+{
+    <link href="~/Scripts/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/Scripts/plugins/datatables-responsive/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+    <script src="~/Scripts/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Scripts/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Scripts/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/Scripts/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script>
+        $("#tbl_ProImage").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            "aoColumns": [
+                null,
+                null,
+                { sWidth: '180px' }
+            ]
+        });
+    </script>
+}

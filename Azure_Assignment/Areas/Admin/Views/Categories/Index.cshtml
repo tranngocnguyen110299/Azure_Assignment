@@ -1,0 +1,113 @@
+﻿@model IEnumerable<Azure_Assignment.EF.Categories>
+
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Manage Categories</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="~/Admin/">Admin</a></li>
+                        <li class="breadcrumb-item active">Categories</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Data of Product Categories</h3>
+                    <p>
+                        <a class="btn btn-success btn-sm float-right" href="~/Admin/Categories/Create">
+                            <i class="fas fa-plus">
+                            </i>
+                            Create New
+                        </a>
+                        <a style="cursor:pointer; color:white" id="print" class="btn btn-primary btn-sm float-right"><i class="fas fa-print"></i> Print</a>
+                    </p>
+                </div>
+                <div class="card-body">
+                    <table id="tbl_Categories" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.CategoryName)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Description)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Picture)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CategoryName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Description)
+                                    </td>
+                                    <td>
+                                         <img src="@Url.Content(item.Picture)" width="200" height="100" alt="" />
+                                    </td>
+                                    <td class="project-actions text-right">
+                                        <a class="btn btn-primary btn-sm" href="~/Admin/Categories/Details/@item.CategoryID">
+                                            <i class="fas fa-folder">
+                                            </i>
+                                            View
+                                        </a>
+                                        <a class="btn btn-info btn-sm" href="~/Admin/Categories/Edit/@item.CategoryID">
+                                            <i class="fas fa-pencil-alt">
+                                            </i>
+                                            Edit
+                                        </a>
+                                        <a class="btn btn-danger btn-sm" href="~/Admin/Categories/Delete/@item.CategoryID">
+                                            <i class="fas fa-trash">
+                                            </i>
+                                            Delete
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@section ScriptConfig
+{
+    <link href="~/Scripts/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/Scripts/plugins/datatables-responsive/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+    <script src="~/Scripts/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Scripts/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Scripts/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script>
+        $("#tbl_Categories").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            "aoColumns": [
+                null,
+                null,
+                { sWidth: '100px' },
+                { sWidth: '180px' }
+            ]
+        });
+        $('#print').click(function () {
+            window.print();
+            return false;
+        });
+    </script>
+}

@@ -1,0 +1,90 @@
+﻿@model Azure_Assignment.EF.Users
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Breadcrumb = "Login";
+}
+@section ClientStyle{
+    <link rel="icon" type="image/png" href="~/Scripts/log-in-plugin/images/icons/favicon.ico" />
+    <link href="~/Scripts/log-in-plugin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Scripts/log-in-plugin/fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~/Scripts/log-in-plugin/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Scripts/log-in-plugin/vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="~/Scripts/log-in-plugin/vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Scripts/log-in-plugin/vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Scripts/log-in-plugin/vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Scripts/log-in-plugin/vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="~/Scripts/log-in-plugin/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Scripts/log-in-plugin/css/main.css">
+}
+@Html.Partial("Breadcrumb")
+@if (Session["CLIENT_SESSION"] == null)
+{
+    <div class="container">
+        <div class="col-sm-12">
+            <h2 style="text-align:center; color:gray">LOGIN</h2>
+        </div>
+
+        @using (Html.BeginForm("Index", "Login", FormMethod.Post, htmlAttributes: new { @class = "login100-form validate-form" }))
+        {
+            <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+                <span class="label-input100">Username</span>
+                <input class="input100" type="text" name="username" placeholder="Enter username">
+                <span class="focus-input100"></span>
+            </div>
+
+            <div style="color:red;">@ViewBag.ErrorLogin</div>
+
+            <div class="wrap-input100 validate-input m-b-18" data-validate="Password is required">
+                <span class="label-input100">Password</span>
+                <input class="input100" type="password" name="pass" placeholder="Enter password">
+                <span class="focus-input100"></span>
+            </div>
+
+            <div class="flex-sb-m w-full p-b-30">
+                <div>
+                    <a href="~/register" class="txt1">
+                        Create new account?
+                    </a>
+                </div>
+                <div>
+                    <a href="#" class="txt1">
+                        Forgot Password?
+                    </a>
+                </div>
+                
+            </div>
+
+            <div class="container-login100-form-btn">
+                <button class="login100-form-btn">
+                    Login
+                </button>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <section class="checkout spad">
+        <div class="container">
+            <div class="alert alert-success">You has logged in!</div>
+        </div>
+    </section>
+}
+
+@section ClientScript{
+    <script src="~/Scripts/log-in-plugin/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="~/Scripts/log-in-plugin/vendor/animsition/js/animsition.min.js"></script>
+    <script src="~/Scripts/log-in-plugin/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Scripts/log-in-plugin/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/log-in-plugin/vendor/select2/select2.min.js"></script>
+    <script src="~/Scripts/log-in-plugin/vendor/daterangepicker/moment.min.js"></script>
+    <script src="~/Scripts/log-in-plugin/vendor/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Scripts/log-in-plugin/vendor/countdowntime/countdowntime.js"></script>
+    <script src="~/Scripts/log-in-plugin/js/main.js"></script>
+    <style>
+        .container{
+            padding: 5px 80px 80px 50px
+        }
+    </style>
+}

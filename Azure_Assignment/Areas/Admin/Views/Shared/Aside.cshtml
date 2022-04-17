@@ -1,0 +1,169 @@
+﻿@{ 
+    var user = (Azure_Assignment.Areas.Admin.Models.UserLogin)Session["USER_SESSION"];
+}
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="~/admin" class="brand-link">
+        <img src="~/Scripts/dist/img/AdminLTELogo.png" alt="" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">Admin Palkia</span>
+    </a>
+
+    <div class="sidebar">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="@user.Picture" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+                <a href="~/admin/profile" class="d-block">@user.FirtName @user.LastName</a>
+            </div>
+        </div>
+
+        
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <li class="nav-item menu-open">
+                    <a href="~/Admin/Home" class="nav-link">
+                        <img src="~/public/icons/icons8-dashboard-30.png" />
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <img src="~/public/icons/icons8-sell-stock-30.png" />
+                        <p>
+                            Manage Products
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="~/Admin/Products" class="nav-link">
+                                <img src="~/public/icons/icons8-product-30.png" />
+                                <p>Products</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="~/Admin/Feedbacks" class="nav-link">
+                                <img src="~/public/icons/icons8-feedback-30.png" />
+                                <p>Feedbacks</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="~/Admin/Importations" class="nav-link">
+                                <img src="~/public/icons/icons8-database-import-30.png" />
+                                <p>Import To Stock</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="~/Admin/Exportations" class="nav-link">
+                                <img src="~/public/icons/icons8-database-export-30.png" />
+                                <p>Export Out Of Stock</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                @{
+                    if (user.Role == 0)
+                    {
+                        <li class="nav-item">
+                            <a href="~/Admin/Users/" class="nav-link">
+                                <img src="~/public/icons/icons8-management-30.png" />
+                                <p>Manage Users</p>
+                            </a>
+                        </li>
+                    }
+                }
+
+
+                <li class="nav-item">
+                    <a href="~/Admin/Orders/" class="nav-link">
+                        <img src="~/public/icons/icons8-cash-register-euro-30.png" />
+                        <p>Manage Orders</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="~/Admin/Blogs" class="nav-link">
+                        <img src="~/public/icons/icons8-blog-30.png" />
+                        <p>
+                            Manage Blogs
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="~/Admin/BlogCategories" class="nav-link">
+                                <img src="~/public/icons/icons8-book-shelf-30.png" />
+                                <p>Blog Categories</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+
+                            <a href="~/Admin/BlogComments" class="nav-link">
+
+                                <img src="~/public/icons/icons8-comments-30.png" />
+                                <p>Blog Comments</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="~/Admin/Blogs" class="nav-link">
+                                <img src="~/public/icons/icons8-book-30.png" />
+                                <p>Blogs</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                @{
+                    if (user.Role == 0)
+                    {
+                        <li class="nav-item">
+                            <a href="~/Admin/Categories/" class="nav-link">
+                                <img src="~/public/icons/icons8-commodity-30.png" />
+                                <p>Manage Categories</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="~/Admin/Suppliers/" class="nav-link">
+                                <img src="~/public/icons/icons8-supplier-30.png" />
+                                <p>Manage Suppliers</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="~/Admin/Sales/" class="nav-link">
+                                <img src="~/public/icons/icons8-sale-30.png" />
+                                <p>Manage Sales</p>
+                            </a>
+                        </li>
+                    }
+                }
+
+
+
+
+                @{
+                    if (user.Role == 0)
+                    {
+                        <li class="nav-item">
+                            <a href="~/Admin/Payments/" class="nav-link">
+                                <img src="~/public/icons/icons8-visa-30.png" />
+                                <p>Manage Payments</p>
+                            </a>
+                        </li>
+                    }
+                }
+
+                <li class="nav-item">
+                    <a href="@Url.Action("LogOut", "Login")" class="nav-link">
+                        <img src="~/public/icons/icons8-sign-out-30.png" />
+                        <p>Sign out</p>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+    </div>
+</aside>

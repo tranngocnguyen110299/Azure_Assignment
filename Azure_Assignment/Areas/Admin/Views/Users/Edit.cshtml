@@ -1,0 +1,163 @@
+﻿@model Azure_Assignment.EF.Users
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Edit User</h1>
+                    <h5 style="color:red">@ViewBag.Error</h5>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="~/Admin/">Admin</a></li>
+                        <li class="breadcrumb-item"><a href="~/Admin/Users/">Users</a></li>
+                        <li class="breadcrumb-item active">Edit User</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="card card-info">
+                        <div class="card-header">
+                            <h3 class="card-title">Edit User</h3>
+                        </div>
+                        @using (Html.BeginForm("Edit", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-horizontal">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                @Html.HiddenFor(model => model.Username)
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        @Html.LabelFor(model => model.FirtName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.FirtName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter First Name" } })
+                                            @Html.ValidationMessageFor(model => model.FirtName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Last Name" } })
+                                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10" style="width: 100%;">
+                                            @Html.RadioButtonFor(model => model.Gender, true, new { Checked = "checked" })
+                                            <span>Male</span>&emsp;&emsp;
+                                            @Html.RadioButtonFor(model => model.Gender, false)
+                                            <span>Female</span>
+                                            @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        @Html.LabelFor(model => model.Birthday, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Birthday, new { htmlAttributes = new { @class = "form-control oso", @type = "date" } })
+                                            @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Phone Number" } })
+                                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Email" } })
+                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Address" } })
+                                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        @Html.LabelFor(model => model.Picture, htmlAttributes: new { @class = "col-sm-2 col-form-label" })
+                                        <div class="col-sm-10">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" name="ImageFile" id="ImageFile">
+                                                <label class="custom-file-label" for="customFile">Choose file</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        @Html.LabelFor(model => model.Role, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @{
+                                                var selectListRole = new SelectList(
+                                                    new List<SelectListItem>
+                                                    {
+                                                            new SelectListItem {Text = "Customer", Value = "2"},
+                                                            new SelectListItem {Text = "Employee", Value = "1"},
+                                                            new SelectListItem {Text = "Administrator", Value = "0"},
+                    }, "Value", "Text");
+                                            }
+                                            @Html.DropDownListFor(model => model.Role, selectListRole, "Select Role", htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            <div class="checkbox">
+                                                @{
+                                                    var selectListStatus = new SelectList(
+                                                        new List<SelectListItem>
+                                                        {
+                                                            new SelectListItem {Text = "Active", Value = "true"},
+                                                            new SelectListItem {Text = "Disable", Value = "false"},
+                    }, "Value", "Text");
+                                                }
+                                                @Html.DropDownListFor(model => model.Status, selectListStatus, htmlAttributes: new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="imageOldFile_User" value="@Session["OldImage_User"]" />
+
+                                </div>
+
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-success">Save</button>
+                                    <button type="reset" class="btn btn-default float-right" onclick="window.location = '../'">Cancel</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@section ScriptConfig
+{
+    <link href="~/Scripts/plugins/daterangepicker/daterangepicker.css" rel="stylesheet" />
+    <script src="~/Scripts/plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Scripts/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+
+}

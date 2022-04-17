@@ -1,0 +1,118 @@
+﻿@model List<Azure_Assignment.Models.CartItem>
+
+@{
+    ViewBag.Title = "Cart";
+    ViewBag.Breadcrumb = "Shopping cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.Partial("Breadcrumb")
+
+@if (Model.Count > 0)
+{
+    <section class="shop-cart spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shop__cart__table">
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Product</th>
+                                    <th>Price</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="cart__product__item">
+                                            <img src="@Url.Content(item.Product.Thumbnail)" alt="" width="100">
+                                            <div class="cart__product__item__title">
+                                                <h6>@item.Product.ProductName</h6>
+                                                <div class="rating">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="cart__price">
+                                            <script>document.write((@item.Product.UnitPrice).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').slice(0, -3));</script>
+                                        </td>
+                                        <td class="cart__quantity">
+                                            <div class="pro-qty">
+                                                <input id="txtUpdate-cart" class="txtQuantity" type="text" data-id="@item.Product.ProductID" value="@item.Quantity">
+                                            </div>
+                                        </td>
+                                        <td class="cart__total">
+                                            <script>document.write((@item.Product.UnitPrice * @item.Quantity).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').slice(0, -3));</script>
+                                        </td>
+                                        <td class="cart__close"><a data-id="@item.Product.ProductID" class="btnDelete-item"><span class="icon_close"></span></a></td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <div class="cart__btn" id="btnContinue">
+                        <a style="cursor:pointer">Continue Shopping</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <div class="cart__btn" id="btnDeleteAll">
+
+                        <a style="cursor:pointer"><span class="glyphicon-remove"></span> Delete Cart</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="cart__btn update__btn" id="btnUpdate-cart">
+                        <a style="cursor:pointer"><span class="icon_loading"></span> Update cart</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="discount__content">
+                        
+                    </div>
+                </div>
+                <div class="col-lg-4 offset-lg-2">
+                    <div class="cart__total__procced">
+                        <h6>Cart total</h6>
+                        <ul>
+                            <li>Old price <span style="text-decoration:line-through">
+                                
+                            <script>document.write((@ViewBag.OldPrice).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').slice(0, -3));</script> VND</span></li>
+                            <li>Total <span>
+                            <script>document.write((@ViewBag.Price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').slice(0, -3));</script>  VND</span></li>
+                        </ul>
+                        <a href="~/cart/checkout" class="primary-btn">Proceed to checkout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+else
+{
+<section class="checkout spad">
+    <div class="container">
+        <div class="alert alert-warning" style="font-size:large">Your shopping cart does not contain any products!</div>
+    </div>
+</section>
+}
+
+@section ClientScript{
+    <script src="~/Content/js/jsController/cartController.js"></script>
+}

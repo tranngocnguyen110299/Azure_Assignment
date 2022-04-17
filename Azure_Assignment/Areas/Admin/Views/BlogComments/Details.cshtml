@@ -1,0 +1,119 @@
+﻿@model Azure_Assignment.EF.BlogComments
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Detail Blog comment</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="~/Admin/">Admin</a></li>
+                        <li class="breadcrumb-item"><a href="~/Admin/BlogComments/">Blog comments</a></li>
+                        <li class="breadcrumb-item active">Detail</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="card">
+            <div class="card-header">
+                <h1 style="font-weight:bold; font-size:25px;" class="card-title">Detail of Blog comments</h1>
+
+                <div class="card-tools">
+                    <button class="btn btn-block btn-secondary float-right" onclick="window.location.href = '../'">Back to List</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.BlogCommentID)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.BlogCommentID)
+                                    </p>
+                                </div>
+
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.FullName)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.FullName)
+                                    </p>
+                                </div>
+
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.Email)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.Email)
+                                    </p>
+                                </div>
+
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.Phone)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.Phone)
+                                    </p>
+                                </div>
+
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.Comment)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.Comment, new { @id = "txa_display_Blog_Comment" })
+                                    </p>
+                                </div>
+
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.CommentingDate)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.CommentingDate)
+                                    </p>
+                                </div>
+
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayName("Blog name")</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @ViewBag.Blog
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section ScriptConfig
+{
+    <script>
+        $(function () {
+            $('#txa_display_Blog_Comment').summernote('disable');
+        })
+    </script>
+}
+

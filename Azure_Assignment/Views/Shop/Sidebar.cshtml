@@ -1,0 +1,68 @@
+﻿@{
+    var categoriesList = (List<Azure_Assignment.ViewModels.CategoryViewModel>)ViewBag.Categories_List;
+    var supplierlist = (List<Azure_Assignment.EF.Suppliers>)ViewBag.Suppliers_List;
+}
+
+<div class="col-lg-3 col-md-3">
+    <div class="shop__sidebar">
+        <div class="sidebar__categories">
+            <div class="section-title">
+                <h4>Categories</h4>
+            </div>
+            <div class="categories__accordion">
+                <div class="accordion" id="accordionExample">
+                    @{
+                        if (categoriesList != null)
+                        {
+                            foreach (var item in categoriesList)
+                            {
+                                <div class="card">
+                                    @{
+                                        if (TempData["CurrentBrand"] != null)
+                                        {
+                                            <a href="@Url.Action("ShopByBrand", "Shop", new { id = TempData["CurrentBrand"], cate = item.CategoryID })">@item.CategoryName</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="~/category-@item.CategoryID">@item.CategoryName</a>
+                                        }
+                                    }
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="sidebar__categories">
+            <div class="section-title">
+                <h4>Shop by brands</h4>
+            </div>
+            <div class="categories__accordion">
+                <div class="accordion" id="accordionExample">
+                    @{
+                        if (supplierlist != null)
+                        {
+                            foreach (var item in supplierlist)
+                            {
+                                <div class="card">
+                                    @{
+                                        if (TempData["CurrentCategory"] != null)
+                                        {
+                                            <a href="@Url.Action("Index", "Shop", new { id = TempData["CurrentCategory"], brand = item.SupplierID })" id="brand">@item.CompanyName</a>
+                                        }
+                                        else
+                                        {
+                                            <a href="~/brand-@item.SupplierID" id="brand">@item.CompanyName</a>
+                                        }
+                                    }
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

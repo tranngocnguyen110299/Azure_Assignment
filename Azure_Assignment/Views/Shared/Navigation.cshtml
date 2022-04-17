@@ -1,0 +1,37 @@
+﻿<nav class="header__menu">
+    <ul>
+        <li class="@TempData["HomeActive"]"><a href="~/home">Home</a></li>
+        @{
+            foreach (var item in ViewBag.Layout_Menu)
+            {
+                <li class="@ViewBag.HomeActive"><a href="~/category-@item.CategoryID">@item.CategoryName</a></li>
+            }
+        }
+        <li class="@TempData["CateActive"]">
+            <a href="#">Categories</a>
+            <ul class="dropdown">
+                @{
+                    foreach (var item in ViewBag.Categories_List)
+                    {
+                        <li><a href="~/category-@item.CategoryID">@item.CategoryName</a></li>
+                    }
+                }
+            </ul>
+        </li>
+        <li class="@TempData["BrandActive"]">
+            <a href="#">Brands</a>
+            <ul class="dropdown">
+                @{
+                    foreach (var item in ViewBag.Suppliers_List)
+                    {
+                        <li><a href="~/brand-@item.SupplierID">@item.CompanyName</a></li>
+                    }
+                }
+            </ul>
+        </li>
+        <li class="@TempData["BlogsActive"]"><a href="~/blogs">Blogs</a></li>
+        <li class="@TempData["ContactActive"]"><a href="~/contact">Contact</a></li>
+    </ul>
+
+</nav>
+

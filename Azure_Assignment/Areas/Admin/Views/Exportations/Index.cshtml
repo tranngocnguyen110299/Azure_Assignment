@@ -1,0 +1,309 @@
+﻿@model IEnumerable<Azure_Assignment.EF.Exportation>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Exportations</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="~/Admin/">Admin</a></li>
+                        <li class="breadcrumb-item active">Exportations</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">Data of Product</h3>
+                        </div>
+                        <div class="card-body">
+                            <table id="tbl_Products_Import" class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Product Name
+                                        </th>
+                                        <th>
+                                            Units In Stock
+                                        </th>
+                                        <th>
+                                            Units On Order
+                                        </th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    @foreach (var item in ViewBag.ProductList)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.ProductName
+                                            </td>
+                                            <td>
+                                                @item.UnitsInStock
+                                            </td>
+                                            <td>
+                                                @item.UnitsOnOrder
+                                            </td>
+                                            <td class="project-actions text-right">
+                                                <a class="btn btn-success btn-sm" href="@Url.Action("Create", "Exportations", new { id = item.ProductID})">
+                                                    <i class="fas fa-file-import">
+                                                    </i>
+                                                    Export
+                                                </a>
+                                                <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-lg-@item.ProductID" href="">
+                                                    <i class="fas fa-eye">
+                                                    </i>
+                                                    View
+                                                </a>
+                                            </td>
+                                        </tr>
+
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-lightblue">
+                            <div class="card-header">
+                                <h3 class="card-title">Data of Exportations</h3>
+                            </div>
+                            <div class="card-body">
+                                <table id="tbl_Import" class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.ExportDate)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.UnitPrice)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Quantity)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Products.ProductName)
+                                            </th>
+                                            <th>
+                                                @Html.DisplayNameFor(model => model.Users.FirtName)
+                                            </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ExportDate)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Quantity)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Products.ProductName)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.Users.FirtName)
+                                                </td>
+                                                <td>
+                                                    <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-lg_@item.ExportationID" href="#">
+                                                        <i class="fas fa-eye">
+                                                        </i>
+                                                        View
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</div>
+
+@{
+    foreach (var item in Model)
+    {
+        <div class="modal fade" id="modal-lg_@item.ExportationID">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">@item.Products.ProductName - @item.ExportDate</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table" style="text-align:left">
+                                <tr>
+                                    <th style="width:30%">Import ID</th>
+                                    <td>@item.ExportationID</td>
+                                </tr>
+                                <tr>
+                                    <th>Import date</th>
+                                    <td>@item.ExportDate</td>
+                                </tr>
+                                <tr>
+                                    <th>Unit Price</th>
+                                    <td>@item.UnitPrice</td>
+                                </tr>
+                                <tr>
+                                    <th>Quantity</th>
+                                    <td>@item.Quantity</td>
+                                </tr>
+                                <tr>
+                                    <th>Product name</th>
+                                    <td>@item.Products.ProductName</td>
+                                </tr>
+                                <tr>
+                                    <th>First name</th>
+                                    <td>@item.Users.FirtName</td>
+                                </tr>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    foreach (var item in ViewBag.ProductList)
+    {
+        <div class="modal fade" id="modal-lg-@item.ProductID">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">@item.ProductName</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table" style="text-align:left">
+                                <tr>
+                                    <th style="width:20%">ProductID</th>
+                                    <td>@item.ProductID</td>
+                                </tr>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <td>@item.ProductName</td>
+                                </tr>
+                                <tr>
+                                    <th>Unit Price</th>
+                                    <td>@item.UnitPrice</td>
+                                </tr>
+                                <tr>
+                                    <th>Old Unit Price</th>
+                                    <td>@item.OldUnitPrice</td>
+                                </tr>
+                                <tr>
+                                    <th>Short Description</th>
+                                    <td>@item.ShortDescription</td>
+
+                                </tr>
+                                <tr>
+                                    <th>Units In Stock</th>
+                                    <td>@item.UnitsInStock</td>
+                                </tr>
+                                <tr>
+                                    <th>Units On Order</th>
+                                    <td>@item.UnitsOnOrder</td>
+                                </tr>
+                                <tr>
+                                    <th>Suppliers</th>
+                                    <td>@item.Suppliers.CompanyName</td>
+                                </tr>
+                                <tr>
+                                    <th>Categories</th>
+                                    <td>@item.Categories.CategoryName</td>
+                                </tr>
+                                <tr>
+                                    <th>Sale</th>
+                                    <td>@item.Sale.SaleName</td>
+                                </tr>
+                                <tr>
+                                    <th>Sell</th>
+                                    @if (item.Discontinued == true)
+                                    {
+                                        <td>Stop Selling</td>
+                                    }
+                                    else
+                                    {
+                                        <td>Being Sold</td>
+                                    }
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+@section ScriptConfig
+{
+    <link href="~/Scripts/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="~/Scripts/plugins/datatables-responsive/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+    <script src="~/Scripts/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Scripts/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Scripts/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script>
+
+        $("#tbl_Products_Import").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            "aoColumns": [
+                null,
+                null,
+                null,
+                { sWidth: '160px' }
+            ]
+        });
+
+        $("#tbl_Import").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+            "aoColumns": [
+                null,
+                null,
+                null,
+                null,
+                null,
+                { sWidth: '80px' }
+            ]
+        });
+    </script>
+}

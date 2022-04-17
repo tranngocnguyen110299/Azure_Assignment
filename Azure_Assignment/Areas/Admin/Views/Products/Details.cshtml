@@ -1,0 +1,191 @@
+﻿@model Azure_Assignment.EF.Products
+
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Product Detail</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="~/Admin/">Admin</a></li>
+                        <li class="breadcrumb-item"><a href="~/Admin/Products/">Products</a></li>
+                        <li class="breadcrumb-item active">Detail</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="card">
+            <div class="card-header">
+                <h1 style="font-weight:bold; font-size:25px;" class="card-title">Detail of Product</h1>
+
+                <div class="card-tools">
+                    <button class="btn btn-block btn-secondary float-right" onclick="window.location.href = '../'">Back to List</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-12 order-12 order-md-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.ProductID)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.ProductID)
+                                    </p>
+                                </div>
+
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.ProductName)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.ProductName)
+                                    </p>
+                                </div>
+
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.UnitPrice)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.UnitPrice)
+                                    </p>
+                                </div>
+
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.OldUnitPrice)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.OldUnitPrice)
+                                    </p>
+                                </div>
+
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.ShortDescription)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.ShortDescription)
+                                    </p>
+                                </div>
+
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.Description)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.Raw(Model.Description)
+                                    </p>
+
+                                </div>
+
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.Specification)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.Raw(Model.Specification)
+                                    </p>
+
+                                </div>
+
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.UnitsInStock)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @if (Model.UnitsInStock == null)
+                                        {
+                                            <div>Null</div>
+                                        }
+                                        else
+                                        {
+                                            @Html.DisplayFor(model => model.UnitsInStock)
+                                        }
+                                    </p>
+                                </div>
+
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.UnitsOnOrder)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @if (Model.UnitsOnOrder == null)
+                                        {
+                                            <div>Null</div>
+                                        }
+                                        else
+                                        {
+                                            @Html.DisplayFor(model => model.UnitsOnOrder)
+                                        }
+                                    </p>
+                                </div>
+
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.Suppliers)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.Suppliers.CompanyName)
+                                    </p>
+                                </div>
+
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.Categories)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.Categories.CategoryName)
+                                    </p>
+                                </div>
+
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.Sale)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @Html.DisplayFor(model => model.Sale.SaleName)
+                                    </p>
+                                </div>
+
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.Discontinued)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        @if (Model.Discontinued == true)
+                                        {
+                                            <div>Stop Selling</div>
+                                        }
+                                        else
+                                        {
+                                            <div>Being Sold</div>
+                                        }
+                                    </p>
+                                </div>
+
+                                <div class="post">
+                                    <div class="col-sm-2 user-block">
+                                        <strong>@Html.DisplayNameFor(model => model.Thumbnail)</strong>:
+                                    </div>
+                                    <p class="col-sm-10">
+                                        <img class="img-responsive" src="@Url.Content(Model.Thumbnail)" alt="" style="max-width: 300px" />
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

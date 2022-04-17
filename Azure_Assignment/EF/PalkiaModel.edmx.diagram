@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="067770a611bd4b2d97248a27981519f4" Name="Diagram1">
+        <EntityTypeShape EntityType="PalkiaDBModel.BlogCategories" Width="1.5" PointX="3" PointY="23.625" />
+        <EntityTypeShape EntityType="PalkiaDBModel.BlogComments" Width="1.5" PointX="7.5" PointY="4.75" />
+        <EntityTypeShape EntityType="PalkiaDBModel.Blogs" Width="1.5" PointX="5.25" PointY="0.75" />
+        <EntityTypeShape EntityType="PalkiaDBModel.Categories" Width="1.5" PointX="0.75" PointY="9.25" />
+        <EntityTypeShape EntityType="PalkiaDBModel.Exportation" Width="1.5" PointX="8.25" PointY="9" />
+        <EntityTypeShape EntityType="PalkiaDBModel.Feedbacks" Width="1.5" PointX="5.25" PointY="19.75" />
+        <EntityTypeShape EntityType="PalkiaDBModel.Importation" Width="1.5" PointX="5.25" PointY="5" />
+        <EntityTypeShape EntityType="PalkiaDBModel.OrderDetails" Width="1.5" PointX="5.25" PointY="9.125" />
+        <EntityTypeShape EntityType="PalkiaDBModel.Orders" Width="1.5" PointX="3" PointY="16.625" />
+        <EntityTypeShape EntityType="PalkiaDBModel.Payments" Width="1.5" PointX="0.75" PointY="17.375" />
+        <EntityTypeShape EntityType="PalkiaDBModel.ProductImage" Width="1.5" PointX="5.25" PointY="17.25" />
+        <EntityTypeShape EntityType="PalkiaDBModel.Products" Width="1.5" PointX="3" PointY="7.625" />
+        <EntityTypeShape EntityType="PalkiaDBModel.ReplyBlogComments" Width="1.5" PointX="9.75" PointY="4.875" />
+        <EntityTypeShape EntityType="PalkiaDBModel.ReplyFeedbacks" Width="1.5" PointX="7.5" PointY="19.875" />
+        <EntityTypeShape EntityType="PalkiaDBModel.Sale" Width="1.5" PointX="0.75" PointY="5.25" />
+        <EntityTypeShape EntityType="PalkiaDBModel.Suppliers" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="PalkiaDBModel.Users" Width="1.5" PointX="3" PointY="2.125" />
+        <AssociationConnector Association="PalkiaDBModel.FK__Blogs__BlogCateg__5070F446" />
+        <AssociationConnector Association="PalkiaDBModel.FK__BlogComme__BlogI__534D60F1" />
+        <AssociationConnector Association="PalkiaDBModel.FK__ReplyBlog__BlogC__5629CD9C" />
+        <AssociationConnector Association="PalkiaDBModel.FK__Blogs__Username__4F7CD00D" />
+        <AssociationConnector Association="PalkiaDBModel.FK__Products__Catego__2B3F6F97" />
+        <AssociationConnector Association="PalkiaDBModel.FK__Exportati__Produ__440B1D61" />
+        <AssociationConnector Association="PalkiaDBModel.FK__Exportati__Usern__44FF419A" />
+        <AssociationConnector Association="PalkiaDBModel.FK__Feedbacks__Produ__47DBAE45" />
+        <AssociationConnector Association="PalkiaDBModel.FK__ReplyFeed__Feedb__4AB81AF0" />
+        <AssociationConnector Association="PalkiaDBModel.FK__Importati__Produ__403A8C7D" />
+        <AssociationConnector Association="PalkiaDBModel.FK__Importati__Usern__412EB0B6" />
+        <AssociationConnector Association="PalkiaDBModel.FK__OrderDeta__Order__398D8EEE" />
+        <AssociationConnector Association="PalkiaDBModel.FK__OrderDeta__Produ__3A81B327" />
+        <AssociationConnector Association="PalkiaDBModel.FK__Orders__PaymentI__36B12243" />
+        <AssociationConnector Association="PalkiaDBModel.FK__Orders__Username__35BCFE0A" />
+        <AssociationConnector Association="PalkiaDBModel.FK__ProductIm__Produ__3D5E1FD2" />
+        <AssociationConnector Association="PalkiaDBModel.FK__Products__SaleID__2C3393D0" />
+        <AssociationConnector Association="PalkiaDBModel.FK__Products__Suppli__2A4B4B5E" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

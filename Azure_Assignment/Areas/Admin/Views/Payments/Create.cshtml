@@ -1,0 +1,61 @@
+﻿@model Azure_Assignment.EF.Payments
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Create Sale</h1>
+                    <h5 style="color:red">@ViewBag.Error</h5>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="~/Admin/">Admin</a></li>
+                        <li class="breadcrumb-item"><a href="~/Admin/Payments/">Payments</a></li>
+                        <li class="breadcrumb-item active">Create Payment</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="card card-green">
+                        <div class="card-header">
+                            <h3 class="card-title">New Payment</h3>
+                        </div>
+                        @using (Html.BeginForm("Create", "Payments", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <div class="form-horizontal">
+                                <div class="card-body">
+                                    <div class="form-group row">
+                                        @Html.LabelFor(model => model.PaymentName, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.PaymentName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter payment name" } })
+                                            @Html.ValidationMessageFor(model => model.PaymentName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-success">Create</button>
+                                    <button type="reset" class="btn btn-default float-right" onclick="window.location = './'">Cancel</button>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

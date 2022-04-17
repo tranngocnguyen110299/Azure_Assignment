@@ -1,0 +1,124 @@
+﻿@{
+    var client = (Azure_Assignment.Models.UserLogin)Session["CLIENT_SESSION"];
+}
+<header class="header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-1 col-lg-1"></div>
+            <div class="col-xl-2 col-lg-1">
+                <div class="header__logo">
+                    <a href="~/Home">
+                        <img src="~/public/img/logo.jpg" alt="" />
+                    </a>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-7">
+                @{ Html.RenderAction("Navigation", "Home"); }
+
+            </div>
+            <div class="col-lg-3">
+                <div class="header__right">
+                    @if (Session["CLIENT_SESSION"] == null)
+                    {
+                        <div class="header__right__auth">
+                            <a href="~/login">Login</a>
+                            <a href="~/register">Register</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="dropdown">
+                            <a onclick="largeDropdown()" class="dropbtn">Hi, @client.FirtName @client.LastName</a>
+                            <div id="myDropdown" class="dropdown-content">
+                                <a href="~/userprofile"><span class="icon_profile"></span>&nbsp; Profile</a>
+                                <a href="~/userprofile/MyOrder"><span class="icon_cart"></span>&nbsp; My Order</a>
+                                <a href="@Url.Action("ChangePassword", "UserProfile")"><span class="icon_lock"></span>&nbsp; Password</a>
+                                <a href="~/logout"><span class="icon_stop_alt"></span>&nbsp; Logout</a>
+                            </div>
+                        </div>
+                    }
+                    &ensp;
+                    <ul class="header__right__widget">
+                        <li><span class="icon_search search-switch"></span></li>
+                        <li>
+                            @if (Session["CLIENT_SESSION"] != null)
+                            {
+                                if (client.Role == 0)
+                                {
+                                    <a href="~/admin">Admin</a>
+                                }
+                            }
+
+                        </li>
+                        <li>
+                            <a href="~/cart">
+                                <span class="icon_bag_alt"></span>
+                                <div class="tip">@ViewBag.QuantityInCart</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="canvas__open">
+            <i class="fa fa-bars"></i>
+        </div>
+    </div>
+</header>
+<style>
+    .dropbtn {
+        cursor: pointer;
+    }
+
+        .dropbtn:hover, .dropbtn:focus {
+            background-color: #2980B9;
+        }
+
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        overflow: auto;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+    .dropdown a:hover {
+        background-color: #ddd;
+    }
+
+    .show {
+        display: block;
+    }
+</style>
+
+<script>
+    function largeDropdown() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+    window.onclick = function (event) {
+        if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>

@@ -1,0 +1,431 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">Dashboard</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="~/admin">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="content">
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-home"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">In Stock</span>
+                            <span class="info-box-number">@ViewBag.BaseInfo[0]</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box mb-3">
+                        <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-envelope"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Interactive</span>
+                            <span class="info-box-number">@ViewBag.BaseInfo[1]</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix hidden-md-up"></div>
+
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box mb-3">
+                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Orders</span>
+                            <span class="info-box-number">@ViewBag.BaseInfo[2]</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-3">
+                    <div class="info-box mb-3">
+                        <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Members</span>
+                            <span class="info-box-number">@ViewBag.BaseInfo[3]</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Importation - Exportation</h5>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+
+                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="chart">
+                                        <canvas id="im-ex-Chart" height="180" style="height: 180px;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-sm-3 col-6">
+                                    <div class="description-block border-right">
+                                        <h5 class="description-header">@ViewBag.Total[0] item(s)</h5>
+                                        <span class="description-text">PRODUCT ON ORDERS</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 col-6">
+                                    <div class="description-block border-right">
+                                        <h5 class="description-header">
+                                            <script>document.write((@ViewBag.Total[1]).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').slice(0, -3));</script> VND
+                                        </h5>
+                                        <span class="description-text">PROCEEDS</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 col-6">
+                                    <div class="description-block border-right">
+                                        <h5 class="description-header">
+                                            <script>document.write((@ViewBag.Total[2]).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').slice(0, -3));</script> VND
+                                        </h5>
+                                        <span class="description-text">IMPORTATION COST</span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 col-6">
+                                    <div class="description-block">
+                                        <h5 class="description-header">
+                                            <script>document.write((@ViewBag.Total[3]).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').slice(0, -3));</script> VND
+                                        </h5>
+                                        <span class="description-text">EXPORTATION COST</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+
+                    <div class="card card-success">
+                        <div class="card-header">
+                            <h3 class="card-title">Take Inventory</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="chart">
+                                <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header border-transparent">
+                            <h3 class="card-title">New Feedbacks</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table m-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Feedback ID</th>
+                                            <th>Full Name</th>
+                                            <th>Product</th>
+                                            <th>Content</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            foreach (var item in ViewBag.NewFeedbacks)
+                                            {
+                                                <tr>
+                                                    <td>@item.FeedbackID</td>
+                                                    <td>@item.FeedbackName</td>
+                                                    <td>@item.Products.ProductName</td>
+                                                    <td>@item.Content</td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer clearfix">
+                            <a href="~/admin/feedbacks" class="btn btn-sm btn-secondary float-right">View All Feedbacks</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="info-box mb-3 bg-warning">
+                        <span class="info-box-icon"><i class="fas fa-tag"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Suppliers</span>
+                            <span class="info-box-number">@ViewBag.DataSystem[0]</span>
+                        </div>
+                    </div>
+                    <div class="info-box mb-3 bg-success">
+                        <span class="info-box-icon"><i class="fas fa-laptop"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Categories</span>
+                            <span class="info-box-number">@ViewBag.DataSystem[1]</span>
+                        </div>
+                    </div>
+                    <div class="info-box mb-3 bg-danger">
+                        <span class="info-box-icon"><i class="fas fa-box"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Products</span>
+                            <span class="info-box-number">@ViewBag.DataSystem[2]</span>
+                        </div>
+                    </div>
+                    <div class="info-box mb-3 bg-info">
+                        <span class="info-box-icon"><i class="fas fa-money-bill-wave"></i></span>
+
+                        <div class="info-box-content">
+                            <span class="info-box-text">Sales</span>
+                            <span class="info-box-number">@ViewBag.DataSystem[3]</span>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Recently Added Blogs</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body p-0">
+                            <ul class="products-list product-list-in-card pl-2 pr-2">
+                                @{
+                                    foreach (var item in ViewBag.RecentlyAddedBlogs)
+                                    {
+                                        <li class="item">
+                                            <div class="product-img">
+                                                <img src="@Url.Content(item.Thumbnail)" alt="Product Image" class="img-size-50">
+                                            </div>
+                                            <div class="product-info">
+                                                <a href="javascript:void(0)" class="product-title">
+                                                    @item.BlogName
+                                                    <span class="badge badge-warning float-right">@item.Username</span>
+                                                </a>
+                                                <span class="product-description">
+                                                    
+                                                </span>
+                                            </div>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="~/admin/blogs" class="uppercase">View All Blogs</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+@section ScriptConfig{
+    <script src="~/Scripts/plugins/chart.js/Chart.min.js"></script>
+    <script>
+        $(function () {
+            'use strict'
+            
+
+            $('#world-map-markers').mapael({
+                map: {
+                    name: 'usa_states',
+                    zoom: {
+                        enabled: true,
+                        maxLevel: 10
+                    }
+                }
+            })
+
+        })
+
+        $(function () {
+
+            var lbChart = @Html.Raw(Json.Encode(ViewBag.LabelChartCategory));
+            var dataCategoryInStock = @Html.Raw(Json.Encode(ViewBag.DataCategoryChartInStock));
+            var dataCategoryOnOrder = @Html.Raw(Json.Encode(ViewBag.DataCategoryChartOnOrder));
+            var dataImportation = @Html.Raw(Json.Encode(ViewBag.DataImportationQuantity));
+            var dataExportation = @Html.Raw(Json.Encode(ViewBag.DataExportationQuantity));
+
+            var areaChartCanvas = $('#im-ex-Chart').get(0).getContext('2d')
+            var areaChartData = {
+                labels: lbChart,
+                datasets: [
+                    {
+                    label: 'Importation',
+                        backgroundColor: 'rgba(60,141,188,0.9)',
+                        borderColor: 'rgba(60,141,188,0.8)',
+                        pointRadius: false,
+                        pointColor: '#3b8bba',
+                        pointStrokeColor: 'rgba(60,141,188,1)',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(60,141,188,1)',
+                        data: dataImportation
+                    },
+                    {
+                    label: 'Exportation',
+                        backgroundColor: 'rgba(210, 214, 222, 1)',
+                        borderColor: 'rgba(210, 214, 222, 1)',
+                        pointRadius: false,
+                        pointColor: 'rgba(210, 214, 222, 1)',
+                        pointStrokeColor: '#c1c7d1',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(220,220,220,1)',
+                        data: dataExportation
+                    },
+                ]
+            }
+
+            var areaChartOptions = {
+                maintainAspectRatio: false,
+                responsive: true,
+                legend: {
+                    display: true
+                },
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display: false,
+                        }
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            display: false,
+                        }
+                    }]
+                }
+            }
+
+            var areaChart = new Chart(areaChartCanvas, {
+                type: 'bar',
+                data: areaChartData,
+                options: areaChartOptions
+            })
+
+
+            var lbChart = @Html.Raw(Json.Encode(ViewBag.LabelChartCategory));
+            var dataCategoryInStock = @Html.Raw(Json.Encode(ViewBag.DataCategoryChartInStock));
+            var dataCategoryOnOrder = @Html.Raw(Json.Encode(ViewBag.DataCategoryChartOnOrder));
+
+            var barChartCanvas = $('#barChart').get(0).getContext('2d')
+            var barChartData = {
+                labels: lbChart,
+                datasets: [
+                    {
+                    label: 'In Stock',
+                        backgroundColor: 'rgba(60,141,188,0.9)',
+                        borderColor: 'rgba(60,141,188,0.8)',
+                        pointRadius: false,
+                        pointColor: '#3b8bba',
+                        pointStrokeColor: 'rgba(60,141,188,1)',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(60,141,188,1)',
+                        data: dataCategoryInStock
+                    },
+                    {
+                    label: 'On Order',
+                        backgroundColor: 'rgba(210, 214, 222, 1)',
+                        borderColor: 'rgba(210, 214, 222, 1)',
+                        pointRadius: false,
+                        pointColor: 'rgba(210, 214, 222, 1)',
+                        pointStrokeColor: '#c1c7d1',
+                        pointHighlightFill: '#fff',
+                        pointHighlightStroke: 'rgba(220,220,220,1)',
+                        data: dataCategoryOnOrder
+                    },
+                ]
+            }
+
+            var barChartOptions = {
+                maintainAspectRatio: false,
+                responsive: true,
+                legend: {
+                    display: true
+                },
+                scales: {
+                    xAxes: [{
+                        gridLines: {
+                            display: true,
+                        }
+                    }],
+                    yAxes: [{
+                        gridLines: {
+                            display: true,
+                        }
+                    }]
+                }
+            }
+
+            var barChart = new Chart(barChartCanvas, {
+                type: 'bar',
+                data: barChartData,
+                options: barChartOptions
+            })
+
+
+        })
+    </script>
+
+}

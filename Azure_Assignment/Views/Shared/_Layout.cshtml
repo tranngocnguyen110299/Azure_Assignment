@@ -1,0 +1,126 @@
+﻿@{
+    var client = (Azure_Assignment.Models.UserLogin)Session["CLIENT_SESSION"];
+}
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Ashion Template">
+    <meta name="keywords" content="Ashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Palkia | @ViewBag.Title</title>
+    <link rel="icon" href="~/public/img/logo-in-title.png" type="image/x-icon">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    @Styles.Render("~/bundles/core")
+    <link rel="stylesheet" href="~/Content/css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Content/css/elegant-icons.css" type="text/css">
+
+    @RenderSection("ClientStyle", false)
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__close">+</div>
+
+        <ul class="offcanvas__widget">
+            <li><span class="icon_search search-switch"></span></li>
+            @if (Session["CLIENT_SESSION"] != null)
+            {
+                if (client.Role == 0)
+                {
+                    <li><a href="~/admin">Admin</a></li>
+                }
+            }
+                <li>
+                    <a href="~/cart">
+                        <span class="icon_bag_alt"></span>
+                        <div class="tip">@ViewBag.QuantityInCart</div>
+                    </a>
+                </li>
+            </ul>
+        <div class="offcanvas__logo">
+            <a href="~/Home">
+                <img src="~/public/img/logo.jpg" />
+            </a>
+        </div>
+        <div id="mobile-menu-wrap"></div>
+
+        @{
+            if (Session["CLIENT_SESSION"] == null)
+            {
+                <div class="offcanvas__auth">
+                    <a href="~/login">Login</a>
+                    <a href="~/register">Register</a>
+                </div>
+            }
+            else
+            {
+                <div class="dropdown">
+                    <a onclick="smallDropdown()" class="dropbtn">Hi, @client.FirtName @client.LastName</a>
+                    <div id="myDropdown-2" class="dropdown-content">
+                        <a href="~/userprofile"><span class="icon_profile"></span>&nbsp; Profile</a>
+                        <a href="~/userprofile/MyOrder"><span class="icon_cart"></span>&nbsp; My Order</a>
+                        <a href="@Url.Action("ChangePassword", "UserProfile")"><span class="icon_lock"></span>&nbsp; Password</a>
+                        <a href="~/logout"><span class="icon_stop_alt"></span>&nbsp; Logout</a>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+
+
+    @{Html.RenderAction("Header", "Home");}
+
+    @RenderBody()
+
+    @{Html.RenderAction("Footer", "Home"); }
+
+    <!-- jQuery -->
+    <script src="~/Content/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/js/bootstrap.min.js"></script>
+    <script src="~/Content/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/Content/js/jquery-ui.min.js"></script>
+    <script src="~/Content/js/mixitup.min.js"></script>
+    <script src="~/Content/js/jquery.countdown.min.js"></script>
+    <script src="~/Content/js/jquery.slicknav.js"></script>
+    <script src="~/Content/js/owl.carousel.min.js"></script>
+    <script src="~/Content/js/jquery.nicescroll.min.js"></script>
+    <script src="~/Content/js/main.js"></script>
+
+    @RenderSection("ClientScript", false)
+    <script>
+        function smallDropdown() {
+            document.getElementById("myDropdown-2").classList.toggle("show");
+        }
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+
+
+
+</body>
+
+</html>
